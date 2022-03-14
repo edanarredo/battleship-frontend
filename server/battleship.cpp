@@ -54,6 +54,7 @@ void placeBoats(){
         board[x-4][y]=1;
     }
 }
+
 void guessSpace(){
     int x, y;
     cout << "Guess x";
@@ -62,13 +63,49 @@ void guessSpace(){
     cin >> y;
     if (board[x][y] == 1){
         cout << "hit";
+        board[x][y] = 3;
     }
-    else
+    else {
         cout << "miss";
+        board[x][y] = 2;
+    }
+}
+void printBoard()  //Print the board with the boats placed on it
+{
+    cout << "   0|1|2|3|4|5|6|7|8|9" << endl << endl;
+    for(int i=0; i<10; i++)  //column loop
+    {
+        for(int j=0; j<10; j++)  //row loop
+        {
+            if(j==0)
+            {
+                cout << i << "  " ; //print row number and spaces before new row
+            }
+            if (board[i][j] == 1){
+                cout << '=';
+            }
+            else if (board[i][j] == 2){
+                cout << ' ';
+            }
+            else if (board[i][j] == 3){
+                cout << 'X';
+            }
+            else {
+                cout << 'O';
+            }
+            if(j!=9)
+            {
+                cout << "|";
+            }
+        }
+        cout << endl; //new line at end of column
+    }
+    cout << endl;
 }
 int main() {
     initialize();
     placeBoats();
     guessSpace();
+    printBoard();
     return 0;
 }
