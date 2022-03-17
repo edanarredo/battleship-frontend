@@ -15,43 +15,34 @@ void initialize(){
         }
     }
 }
-void placeBoats(){
+void placeBoats(string boatName, int size){
     int x, y;
     char direction;
-
-    cout << "x coordinate for Carrier (5 spaces)";
+    cout << "x coordinate for " << boatName << "(" << size << " spaces)";
     cin >> x;
-    cout << "y coordinate for Carrier (5 spaces)";
+    cout << "y coordinate for " << boatName << "(" << size << " spaces)";
     cin >> y;
-    cout << "Direction coordinate for Carrier (5 spaces)";
+    cout << "Direction coordinate for " << boatName << "(" << size << " spaces)";
     cin >> direction;
     if (direction == 'n'){
-        board[x][y]=1;
-        board[x][y+1]=1;
-        board[x][y+2]=1;
-        board[x][y+3]=1;
-        board[x][y+4]=1;
+        for (int i = 0; i < size;i++) {
+            board[x][y + i] = 1;
+        }
     }
     if (direction == 'e'){
-        board[x][y]=1;
-        board[x+1][y]=1;
-        board[x+2][y]=1;
-        board[x+3][y]=1;
-        board[x+4][y]=1;
+        for (int i = 0; i < size;i++) {
+            board[x + i][y] = 1;
+        }
     }
     if (direction == 's'){
-        board[x][y]=1;
-        board[x][y-1]=1;
-        board[x][y-2]=1;
-        board[x][y-3]=1;
-        board[x][y-4]=1;
+        for (int i = 0; i < size;i++) {
+            board[x][y - i] = 1;
+        }
     }
     if (direction == 'w'){
-        board[x][y]=1;
-        board[x-1][y]=1;
-        board[x-2][y]=1;
-        board[x-3][y]=1;
-        board[x-4][y]=1;
+        for (int i = 0; i < size;i++) {
+            board[x - i][y] = 1;
+        }
     }
 }
 
@@ -64,6 +55,7 @@ void guessSpace(){
     if (board[x][y] == 1){
         cout << "hit";
         board[x][y] = 3;
+        points++;
     }
     else {
         cout << "miss";
@@ -104,8 +96,15 @@ void printBoard()  //Print the board with the boats placed on it
 }
 int main() {
     initialize();
-    placeBoats();
-    guessSpace();
-    printBoard();
+    placeBoats("Carrier", 5);
+    placeBoats("Battleship", 4);
+    placeBoats("Destroyer", 3);
+    placeBoats("Submarine", 3);
+    placeBoats("Patrol Boat", 2);
+    while (points != 17) {
+        guessSpace();
+        printBoard();
+    }
+    cout << "You win";
     return 0;
 }
