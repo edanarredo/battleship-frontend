@@ -34,8 +34,18 @@ h3 {
 }
 
 #drag{
-  width:48px;
+  width:49px;
   height:48px;
   background: #6C6F71;
   cursor:move;
 }
+
+#guess{
+   display: inline-block;
+   width: 48px;
+   height: 48px;
+   border: 7px solid #1B2022;
+   background:
+            linear-gradient(45deg, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 43%,#fff 45%,#fff 55%,rgba(0,0,0,0) 57%,rgba(0,0,0,0) 100%),
+            linear-gradient(135deg, red 0%,red 43%,#fff 45%,#fff 55%,red 57%,red 100%);
+    }

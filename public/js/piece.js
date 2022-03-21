@@ -1,3 +1,4 @@
+// Piece drag and drag logic
 function allowDrop(ev) {
    ev.preventDefault();
  }
@@ -10,10 +11,13 @@ function allowDrop(ev) {
    ev.preventDefault();
    var data = ev.dataTransfer.getData("text");
    ev.target.appendChild(document.getElementById(data));
-   let result = getPlacedPieceCoordinate();
+   let result = getPlacedSquareCoordinate();
  }
 
-function getPlacedPieceCoordinate() {
+// Get coordinates of piece that was just moved.
+function getPlacedSquareCoordinate() {
+
+  // Initialize Variables
   let board = getBoard();
   let x_coord = 0;
   let y_coord = 0;
@@ -28,17 +32,14 @@ function getPlacedPieceCoordinate() {
      }
   });
 
-  document.getElementById("pos").innerText = `Square Position(x,y): [${x_coord}, ${y_coord}]`;
-  
-  return {
-    xPos: x_coord, 
-    yPos: y_coord, 
-    index: big_index
-  };
+  // Update position text on web page and return coordinates
+  document.getElementById("pos").innerText = `Square Position(x,y): [${x_coord}, ${y_coord}, n]`;
+  return { xPos: x_coord, yPos: y_coord, index: big_index };
 }
 
+// Update the position of the square block
 function updateSquarePosition(x_coord, y_coord, index) {
-  let currentPosition = getPlacedPieceCoordinate();
+  let currentPosition = getPlacedSquareCoordinate();
   let newPosition = x_coord + (y_coord * 10);
 
   // If new coordinate and current not the same, update position

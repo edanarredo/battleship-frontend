@@ -3,7 +3,7 @@ function getBoard() {
    var board = document.querySelectorAll("div.box");
    var result = Array.from(Array(100).keys());
 
-   // If there's a childElement, then occupied, else free.
+   // Indexes of board with a square in it are marked 1, else 0
    board.forEach((item, index) => {
       if (item.childElementCount > 0) 
          result[index] = 1;

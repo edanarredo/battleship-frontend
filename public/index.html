@@ -18,14 +18,15 @@
 </head>
 
 <body>
-   <h2>Battleship 1.0</h2>
+   <h2>Battleship Board Function Testing</h2>
    <div id="board">
       <!-- Battleship Board -->
       <div class="wrapper">
          <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)">
             <div draggable="true" ondragstart="drag(event)" id="drag"></div>
          </div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)">
+         <div id="guess"></div></div>
          <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
          <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
          <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
@@ -153,7 +154,7 @@
          <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
       </div>
    </div>
-   <h2 id="pos">Square Position(x,y): [0, 0]</h2>
+   <h2 id="pos">Square Position(x,y): [0, 0, n]</h2>
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
