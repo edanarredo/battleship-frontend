@@ -1,2 +1,3 @@
-# ez-chatapp
-Simple live chat app using Socket.io
+# Battleship
+
+Will fill this up later with info on how to run the website.
