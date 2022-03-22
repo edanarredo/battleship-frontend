@@ -5,7 +5,7 @@ var socket = io();
 var board = document.getElementById('board');
 
 // Emit "guess" positioning on click event
-board .addEventListener('click', (event) => {
+board.addEventListener('click', (event) => {
    socket.emit('guess', {
       piece_location: event.target.parentNode,
       piece_type: "guess",
