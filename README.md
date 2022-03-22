@@ -5,7 +5,7 @@ Samos will allow users to play a game of battleship with other users online or a
 ## Building With
  - [React.js](https://reactjs.org/)
  - [Express.js](https://expressjs.com/)
- - Socket.io 
+ - [Socket.io](https://socket.io)
  - [AWS Lightsail](https://aws.amazon.com/lightsail/)
 
 ## Getting Started
