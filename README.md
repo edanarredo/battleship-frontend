@@ -20,11 +20,4 @@ Samos will allow users to play a game of battleship with other users online or a
 Here are the steps to recreate a development environment of the battleship game prototype via BASH command line on a Windows device. (filling later)
 
  1. Clone Remote Repository  
-$`git clone https://github.com/edanarredo/battleship-frontend.git`
-
-	
-
-
-
-
-`
+`$ git clone https://github.com/edanarredo/battleship-frontend.git`
