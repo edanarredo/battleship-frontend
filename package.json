@@ -1,0 +1,24 @@
+{
+  "name": "battleship-frontend",
+  "version": "1.0.0",
+  "description": "Simple live chat app using Socket.io",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.17.3",
+    "socket.io": "^4.4.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edanarredo/battleship-frontend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/edanarredo/battleship-frontend/issues"
+  },
+  "homepage": "https://github.com/edanarredo/battleship-frontend#readme"
+}
