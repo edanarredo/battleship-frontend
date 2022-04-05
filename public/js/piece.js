@@ -1,4 +1,5 @@
-// Piece drag and drag logic
+// Code for piece logic goes here
+
 function allowDrop(ev) {
    ev.preventDefault();
  }
@@ -31,16 +32,13 @@ function getPlacedSquareCoordinate() {
         big_index = index;
      }
   });
-
-  // Update position text on web page and return coordinates
-  document.getElementById("pos").innerText = `Square Position(x,y): [${x_coord}, ${y_coord}, n]`;
+  
   return { xPos: x_coord, yPos: y_coord, index: big_index };
 }
 
 // Update the position of the square block
-function updateSquarePosition(x_coord, y_coord, index) {
+function updateSquarePosition(x_coord, y_coord, index, piece_direction) {
   let currentPosition = getPlacedSquareCoordinate();
-  let newPosition = x_coord + (y_coord * 10);
 
   // If new coordinate and current not the same, update position
   if (currentPosition.xPos != x_coord && currentPosition.yPos != y_coord) {
