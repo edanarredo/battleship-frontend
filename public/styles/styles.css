@@ -18,6 +18,10 @@ h3 {
    font-size:2.5em;
 }
 
+#lobbyIdInput {
+   margin: .6rem;
+}
+
 .text-center {
    padding-top: 1rem;
 }
