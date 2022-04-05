@@ -30,7 +30,11 @@ h3 {
 .box {
    width: 50px;
    height: 50px;
-   border: 1px #6C6F71 solid;
+   background-color: #2B90C1;
+}
+
+.dark {
+   background-color: #267EA8 !important;
 }
 
 #drag{
