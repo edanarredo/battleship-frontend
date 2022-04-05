@@ -24,10 +24,10 @@ Here are the steps to recreate a development environment of the battleship game 
 `$ git clone https://github.com/edanarredo/battleship-frontend.git`
 
  2. Open Terminal and Navigate To Local Repository Root Directory
-`$ cd ....`
+ `$ cd ....`
 
  3. Install required packages 
-`$ npm i`
+ `$ npm i`
 
  4. Run Local Battleship Server
 `$ nodemon server/index.js`
