@@ -1,55 +1,59 @@
 const path = require('path');
 const http = require('http');
 const express = require('express');
-const socketIO = require('socket.io');
+const socket = require('socket.io');
+const lobby = require('./lib/utility')
 
 // This will change when running on non-local-server/heroku/etc.
 const publicPath = path.join(__dirname, '/../public');
 const port = process.env.PORT || 3000;
 var app = express();
 var server = http.createServer(app);
-var io = socketIO(server);
+var io = socket(server);
 
 // Client rooms and states
-const state = {};
 const clientRooms = {};
-
-// Server start
-app.use(express.static(publicPath));
-server.listen(port, () => {
-   console.log(`Server is up on port ${port}.`);
-});
 
 // Open socket.io connection
 io.on('connection', (socket) => {
-   console.log("A user connected.");
+   console.log("A user connected.\nuserId: " + socket.id);
 
-   // Log message when user disconnects
+   // Sender disconnects
    socket.on('disconnect', () => {
-      console.log("A user disconnected.");
+      console.log("A user disconnected.\nuserId: " + socket.id);
    });
 
-   socket.on('newGame', () => {
-      let roomName = generateId(5);
-      clientRooms[socket.id] = roomName;
-      // socket.emit('gameCode', () => {});
+   // Sender creates lobby
+   socket.on('createGame', (data) => {
+      let roomId = lobby.generateId();
+      socket.join(roomId)
+      clientRooms[socket.id] = roomId;
+      socket.emit('roomStatus', {status: true, roomId: roomId});
    });
 
-   socket.on('newGame', () => {
-
+   // Sender joins lobby
+   socket.on('joinGame', (data) => {
+      if (clientRooms[data.lobbyIdInput])
+         clientRooms[socket.id] = data.lobbyIdInput;
+      else 
+         socket.broadcast.to(socket.id).emit('roomStatus', {status: false, roomId: null});
    });
 
-   // Emit new square position on "movedSquare" event to clients
+   // Emit square position
    socket.on('movedSquare', (data) => {
       console.log(data);
       socket.broadcast.emit("movedSquare", data);
-      currentPos = data;
    });
 
-   // Emit new guess position on "guess" event to clients
+   // Emit guess position
    socket.on('guess', (data) => {
       socket.broadcast.emit("guess", data);
       console.log(data);
    })
 });
 
+// Server start
+app.use(express.static(publicPath));
+server.listen(port, () => {
+   console.log(`Server is up on port ${port}.`);
+});
