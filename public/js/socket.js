@@ -41,13 +41,19 @@ socket.on('movedSquare', (data) => {
 // Receive room status after menu interaction
 socket.on('roomStatus', (data) => {
    console.log(data);
-   if (data.status == true) 
-      document.getElementById("lobbyId").innerText = `Game Code: ${data.roomId}`;
-      
+   if (data.status == true) {
+      lobbyId = data.roomId;
+      document.getElementById("lobbyId").innerText = `Your Game Lobby ID: ${lobbyId}`;
+   }
    else
       alert('Something went wrong. Try again.');
 });
 
 socket.on('gameReady', (data) => {
-   alert("PLAYERS JOINED ROOM!! DO SOMETHING");
+   let spinner = document.getElementById("loader");
+   document.getElementById("opponentListItem").removeChild(spinner);
+   opponentListItem.innerText = "Player 2";
+   startGameBtn.disabled = false;
+   startGameBtn.classList.remove("btn-danger");
+   startGameBtn.classList.add("btn-primary");
 });

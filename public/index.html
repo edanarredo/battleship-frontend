@@ -18,24 +18,38 @@
 </head>
 
 <body>
-   
+
    <div id="menu" class="menu align-items-center justify-content-center h-100">
       <h2>Samos: Battleship Game</h2>
       <button type="button" id="createBotGameBtn" class="btn btn-light" onclick="startBotGame()">Singleplayer</button>
-      <button type="button" id="createGameBtn" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal">Multiplayer</button>
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <button type="button" id="createGameBtn" class="btn btn-light" data-bs-toggle="modal"
+         data-bs-target="#exampleModal">Multiplayer</button>
+
+      <div class="modal fade" id="exampleModal" data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1"
+         aria-labelledby="exampleModalLabel" aria-hidden="true">
          <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                <div class="modal-header">
                   <h5 class="modal-title" id="exampleModalLabel">Multiplayer Lobby</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                </div>
-               <div class="modal-body" id="lobbyId">
-                  
+               <div class="modal-body" id="lobbyModalBody">
+                  <h6>Players</h6>
+                  <ul class="list-group" id="playersInLobby">
+                     <li id="youListItem" class="list-group-item align-items-center justify-content-center">You</li>
+                     <li id="opponentListItem" class="list-group-item align-items-center justify-content-center">
+                        <div id="loader" class="spinner-border spinner-border-sm" role="status">
+                           <span class="visually-hidden">Loading...</span>
+                        </div>
+                     </li>
+                  </ul>
+                  <br>
+                  <h6 id="lobbyId"></h6>
+                  <button onclick="copyToClipboard()">Copy to Clipboard</button>
                </div>
                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary" disabled>Start!</button>
+                  <button id="close" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button id="start" type="button" class="btn btn-danger" disabled>Start!</button>
                </div>
             </div>
          </div>
