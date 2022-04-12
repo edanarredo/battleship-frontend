@@ -30,7 +30,6 @@ io.on('connection', (socket) => {
       clientRooms[roomId] = [];
       clientRooms[roomId].push(socket.id);
       socket.emit('roomStatus', {status: true, roomId: roomId});
-      console.log(clientRooms);
    });
 
    // Sender joins lobby
@@ -38,8 +37,8 @@ io.on('connection', (socket) => {
       let lobbyId = data.code
       if (clientRooms[lobbyId]) {
          clientRooms[lobbyId].push(`${socket.id}`);
-         socket.to(lobbyId).emit('gameReady', {status: true, roomId: lobbyId})
          console.log(clientRooms);
+         socket.to(lobbyId).emit('gameReady', {status: true, roomId: lobbyId});
       }
       else 
          socket.broadcast.to(socket.id).emit('roomStatus', {status: false, roomId: null});
@@ -47,14 +46,12 @@ io.on('connection', (socket) => {
 
    // Emit square position
    socket.on('movedSquare', (data) => {
-      console.log(data);
       socket.broadcast.emit("movedSquare", data);
    });
 
    // Emit guess position
    socket.on('guess', (data) => {
       socket.broadcast.emit("guess", data);
-      console.log(data);
    })
 });
 
