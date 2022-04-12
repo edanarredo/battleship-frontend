@@ -25,3 +25,8 @@ function updatePositionText(coordinates) {
    document.getElementById("pos").innerText = `Square Position(x,y): [${coordinates.xPos}, ${coordinates.yPos}, n]`;
 }
 
+function startBotGame() {
+   // need to add code to run local game
+   return true;
+}
+

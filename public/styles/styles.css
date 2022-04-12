@@ -52,3 +52,12 @@ h3 {
    width: 49px;
    height: 48px;
 }
+
+#menu {
+   display: block;
+   padding-top: 15%;
+}
+
+#board {
+   display: none !important;
+}
