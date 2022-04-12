@@ -1,13 +1,12 @@
 // Create Game Button
-createGameBtn.addEventListener('click', (event) => {
+createGameBtn.addEventListener('click', () => {
    socket.emit('createGame', "create");
 });
 
 // Join Game Button
-joinGameBtn.addEventListener('click', (event) => {
-   const code = lobbyIdInput.value
-   console.log(code);
-   socket.emit('joinGame', code);
+joinGameBtn.addEventListener('click', () => {
+   const code = lobbyIdInput.value;
+   socket.emit('joinGame', {code: code});
 });
 
 // Guess Event
@@ -47,4 +46,8 @@ socket.on('roomStatus', (data) => {
       
    else
       alert('Something went wrong. Try again.');
-})
+});
+
+socket.on('gameReady', (data) => {
+   alert("PLAYERS JOINED ROOM!! DO SOMETHING");
+});

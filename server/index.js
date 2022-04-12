@@ -27,14 +27,20 @@ io.on('connection', (socket) => {
    socket.on('createGame', (data) => {
       let roomId = lobby.generateId();
       socket.join(roomId)
-      clientRooms[socket.id] = roomId;
+      clientRooms[roomId] = [];
+      clientRooms[roomId].push(socket.id);
       socket.emit('roomStatus', {status: true, roomId: roomId});
+      console.log(clientRooms);
    });
 
    // Sender joins lobby
    socket.on('joinGame', (data) => {
-      if (clientRooms[data.lobbyIdInput])
-         clientRooms[socket.id] = data.lobbyIdInput;
+      let lobbyId = data.code
+      if (clientRooms[lobbyId]) {
+         clientRooms[lobbyId].push(`${socket.id}`);
+         socket.to(lobbyId).emit('gameReady', {status: true, roomId: lobbyId})
+         console.log(clientRooms);
+      }
       else 
          socket.broadcast.to(socket.id).emit('roomStatus', {status: false, roomId: null});
    });
