@@ -1,7 +1,7 @@
 // Initialize Game State and Render Boards
 function init() {
    board.style.display = "block";
-   menu_screen.style.display = "none";
+   menuScreen.style.display = "none";
 }
 
 // Return array of length 100 indicating open and occupied spaces

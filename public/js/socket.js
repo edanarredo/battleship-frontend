@@ -9,6 +9,11 @@ joinGameBtn.addEventListener('click', () => {
    socket.emit('joinGame', {code: code});
 });
 
+// Start Game Button
+startGameBtn.addEventListener('click', () => {
+   socket.emit('startGame', {lobbyId: lobbyId});
+});
+
 // Guess Event
 board.addEventListener('click', (event) => {
    socket.emit('guess', {
@@ -49,11 +54,19 @@ socket.on('roomStatus', (data) => {
       alert('Something went wrong. Try again.');
 });
 
+// Receive that game is in a ready state and enable start button
 socket.on('gameReady', (data) => {
    let spinner = document.getElementById("loader");
    document.getElementById("opponentListItem").removeChild(spinner);
+   document.getElementById("lobbyId").innerText = `Your Game Lobby ID: ${data.roomId}`;
    opponentListItem.innerText = "Player 2";
    startGameBtn.disabled = false;
    startGameBtn.classList.remove("btn-danger");
    startGameBtn.classList.add("btn-primary");
+});
+
+// Receive flag to start game.
+socket.on('startGame', (data) => {
+   console.log('here!');
+   init();
 });

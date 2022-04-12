@@ -15,7 +15,6 @@ var opponentListItem = document.getElementById('opponentListItem');
 var lobbyId = '';
 
 // Utility Functions
-
 function copyToClipboard() {
    navigator.clipboard.writeText(lobbyId);
    alert(`'${lobbyId}' copied to clipboard!`);

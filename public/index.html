@@ -57,7 +57,28 @@
 
       <h2>or</h2>
       <input id="lobbyIdInput"><br>
-      <button type="button" id="joinGameBtn" class="btn btn-light">Join Game</button>
+      <button type="button" id="joinGameBtn" class="btn btn-light" data-bs-toggle="modal"
+      data-bs-target="#exampleModal2">Join Game</button>
+
+      <div class="modal fade" id="exampleModal2" data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1"
+      aria-labelledby="exampleModalLabel2" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="exampleModalLabel2">Game found!</h5>
+               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="lobbyModalBody">
+               <h6>Waiting for host to commence...</h6>
+               <div id="loader" class="spinner-border spinner-border-sm" role="status">
+                  <span class="visually-hidden">Loading...</span>
+               </div>
+               <br>
+               <h6 id="lobbyId"></h6>
+            </div>
+         </div>
+      </div>
+   </div>
    </div>
 
    <div id="board" class="align-items-center justify-content-center h-100">

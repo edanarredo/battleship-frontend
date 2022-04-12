@@ -52,6 +52,11 @@ io.on('connection', (socket) => {
    // Emit guess position
    socket.on('guess', (data) => {
       socket.broadcast.emit("guess", data);
+   });
+
+   // Emit game start for all clients in room.
+   socket.on('startGame', (data) => {
+      io.in(data.lobbyId).emit('startGame', {roomId: data.lobbyId});
    })
 });
 
