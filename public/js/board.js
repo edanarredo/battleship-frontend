@@ -1,7 +1,7 @@
 // Initialize Game State and Render Boards
 function init() {
    board.style.display = "block";
-   menu_screen.style.display = "none";
+   menuScreen.style.display = "none";
 }
 
 // Return array of length 100 indicating open and occupied spaces
@@ -23,5 +23,10 @@ function getBoard() {
 // Update position text on web page and return coordinates
 function updatePositionText(coordinates) {
    document.getElementById("pos").innerText = `Square Position(x,y): [${coordinates.xPos}, ${coordinates.yPos}, n]`;
+}
+
+function startBotGame() {
+   // need to add code to run local game
+   return true;
 }
 
