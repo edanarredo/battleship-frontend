@@ -55,9 +55,10 @@ h3 {
 
 #menu {
    display: block;
-   padding-top: 15%;
+   padding-top: 13%;
 }
 
 #board {
-   display: none !important;
+   display: none;
+   padding-top: 13%;
 }

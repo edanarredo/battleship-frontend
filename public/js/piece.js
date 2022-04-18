@@ -19,7 +19,7 @@ function allowDrop(ev) {
 function getPlacedSquareCoordinate() {
 
   // Initialize Variables
-  let board = getBoard();
+  let board = getDOMBoard();
   let x_coord = 0;
   let y_coord = 0;
   let big_index = 0;

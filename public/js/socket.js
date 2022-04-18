@@ -6,21 +6,24 @@ createGameBtn.addEventListener('click', () => {
 // Join Game Button
 joinGameBtn.addEventListener('click', () => {
    const code = lobbyIdInput.value;
-   socket.emit('joinGame', {code: code});
+   socket.emit('joinGame', { code: code });
 });
 
 // Start Game Button
 startGameBtn.addEventListener('click', () => {
-   socket.emit('startGame', {lobbyId: lobbyId});
+   socket.emit('startGame', { lobbyId: lobbyId });
+   gameMode = 'multiplayer';
 });
 
 // Guess Event
 board.addEventListener('click', (event) => {
-   socket.emit('guess', {
-      piece_location: event.target.parentNode,
-      piece_type: "guess",
-      piece_direction: "north"
-   });
+   if (gameMode == 'multiplayer') {
+      socket.emit('guess', {
+         piece_location: event.target.parentNode,
+         piece_type: "guess",
+         piece_direction: "north"
+      });
+   }
 });
 
 // Square move event
@@ -28,11 +31,13 @@ board.addEventListener('drop', () => {
    let new_coord = getPlacedSquareCoordinate();
    updatePositionText(new_coord)
 
-   socket.emit("movedSquare", {
-      piece_position: new_coord,
-      piece_type: "warship",
-      piece_direction: "north"
-   });
+   if (gameMode == 'multiplayer') {
+      socket.emit("movedSquare", {
+         piece_position: new_coord,
+         piece_type: "warship",
+         piece_direction: "north"
+      });
+   }
 });
 
 // Receive moved square broadcast
