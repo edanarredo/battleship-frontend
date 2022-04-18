@@ -10,7 +10,6 @@ body {
 
 h2 {
    padding: 10px 20px;
-   color: white;
 }
 
 h3 {
@@ -20,6 +19,10 @@ h3 {
 
 #lobbyIdInput {
    margin: .6rem;
+}
+
+.menuText {
+   color: white;
 }
 
 .text-center {
@@ -58,7 +61,12 @@ h3 {
    padding-top: 13%;
 }
 
-#board {
+#boardMenu {
    display: none;
    padding-top: 13%;
+}
+
+#logo {
+   height: 300px;
+   width: 300px;
 }

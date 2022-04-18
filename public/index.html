@@ -20,11 +20,17 @@
 <body>
 
    <div id="menu" class="menu align-items-center justify-content-center h-100">
-      <h2>Samos: Battleship Game</h2>
+      <!-- Logo  -->
+      <img src="./assets/logo.png" id="logo"> <br>
+
+      <!-- Singleplayer Button  -->
       <button type="button" id="createBotGameBtn" class="btn btn-light" onclick="initBotGame()">Singleplayer</button>
+
+      <!-- Multiplayer Create Game Button -->
       <button type="button" id="createGameBtn" class="btn btn-light" data-bs-toggle="modal"
          data-bs-target="#exampleModal">Start Lobby</button>
 
+      <!-- Lobby Modal Menu  -->
       <div class="modal fade" id="exampleModal" data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1"
          aria-labelledby="exampleModalLabel" aria-hidden="true">
          <div class="modal-dialog modal-dialog-centered">
@@ -55,168 +61,188 @@
          </div>
       </div>
 
-      <h2>or</h2>
+      <!-- Menu Text  -->
+      <h2 class="menuText">or</h2>
+
+      <!-- Input  -->
       <input id="lobbyIdInput"><br>
+
+      <!-- Join Game Button -->
       <button type="button" id="joinGameBtn" class="btn btn-light" data-bs-toggle="modal"
-      data-bs-target="#exampleModal2">Join Game</button>
-
+         data-bs-target="#exampleModal2">Join Game</button>
+      
+      <!-- Waiting for Host Modal -->
       <div class="modal fade" id="exampleModal2" data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1"
-      aria-labelledby="exampleModalLabel2" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-         <div class="modal-content">
-            <div class="modal-header">
-               <h5 class="modal-title" id="exampleModalLabel2">Game found!</h5>
-               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" id="lobbyModalBody">
-               <h6>Waiting for host to commence...</h6>
-               <div id="loader" class="spinner-border spinner-border-sm" role="status">
-                  <span class="visually-hidden">Loading...</span>
+         aria-labelledby="exampleModalLabel2" aria-hidden="true">
+         <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel2">Game found!</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                </div>
-               <br>
-               <h6 id="lobbyId"></h6>
+               <div class="modal-body" id="lobbyModalBody">
+                  <h6>Waiting for host to commence...</h6>
+                  <div id="loader" class="spinner-border spinner-border-sm" role="status">
+                     <span class="visually-hidden">Loading...</span>
+                  </div>
+                  <br>
+                  <h6 id="lobbyId"></h6>
+               </div>
             </div>
          </div>
       </div>
    </div>
-   </div>
 
-   <div id="board" class="align-items-center justify-content-center h-100">
-      <!-- Battleship Board -->
-      <div class="wrapper">
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)">
-            <div draggable="true" ondragstart="drag(event)" id="drag"></div>
+   <div id="boardMenu" class="container py-4">
+      <div id="board" class="p-5 mb-4 bg-light rounded-3">
+         <!-- Battleship Board -->
+         <div class="wrapper">
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)">
+               <div draggable="true" ondragstart="drag(event)" id="drag"></div>
+            </div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)">
+               <!-- <div><img class="guess" src="./assets/Target/battleship_hitmarker.png"></div> -->
+            </div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
          </div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)">
-            <!-- <div><img class="guess" src="./assets/Target/battleship_hitmarker.png"></div> -->
+
+         <div class="wrapper">
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
          </div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-      </div>
 
-      <div class="wrapper">
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-      </div>
+         <div class="wrapper">
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+         </div>
 
-      <div class="wrapper">
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-      </div>
+         <div class="wrapper">
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+         </div>
 
-      <div class="wrapper">
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-      </div>
+         <div class="wrapper">
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+         </div>
 
-      <div class="wrapper">
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-      </div>
+         <div class="wrapper">
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+         </div>
 
-      <div class="wrapper">
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-      </div>
+         <div class="wrapper">
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+         </div>
 
-      <div class="wrapper">
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-      </div>
+         <div class="wrapper">
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+         </div>
 
-      <div class="wrapper">
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-      </div>
+         <div class="wrapper">
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+         </div>
 
-      <div class="wrapper">
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+         <div class="wrapper">
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+            <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+         </div>
+         <h2 id="pos">Square Position(x,y): [0, 0, n]</h2>
       </div>
-
-      <div class="wrapper">
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-         <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+      <div class="row align-items-md-stretch">
+         <div class="col-md-8">
+            <div class="h-100 p-5 text-white bg-dark rounded-3">
+               <h2>Piece to plate:</h2>
+            </div>
+         </div>
+         <div class="col-md-4">
+            <div class="h-100 p-5 bg-light border rounded-3">
+               <h2>Piece Orientation</h2>
+            </div>
+         </div>
       </div>
-      <h2 id="pos">Square Position(x,y): [0, 0, n]</h2>
    </div>
 
 </body>

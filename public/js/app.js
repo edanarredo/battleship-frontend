@@ -2,7 +2,7 @@
 var socket = io();
 
 // Get important html elements from DOM
-var board = document.getElementById('board');
+var board = document.getElementById('boardMenu');
 var menuScreen = document.getElementById('menu');
 var createBotGameBtn = document.getElementById('createBotGameBtn');
 var createGameBtn = document.getElementById('createGameBtn');
