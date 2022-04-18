@@ -68,5 +68,4 @@ socket.on('gameReady', (data) => {
 // Receive flag to start game.
 socket.on('startGame', (data) => {
    console.log('here!');
-   init();
 });

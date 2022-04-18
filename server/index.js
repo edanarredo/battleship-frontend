@@ -37,7 +37,7 @@ io.on('connection', (socket) => {
       let lobbyId = data.code
       if (clientRooms[lobbyId]) {
          clientRooms[lobbyId].push(`${socket.id}`);
-         console.log(clientRooms);
+         socket.join(lobbyId);
          socket.to(lobbyId).emit('gameReady', {status: true, roomId: lobbyId});
       }
       else 
@@ -57,7 +57,7 @@ io.on('connection', (socket) => {
    // Emit game start for all clients in room.
    socket.on('startGame', (data) => {
       io.in(data.lobbyId).emit('startGame', {roomId: data.lobbyId});
-   })
+   });
 });
 
 // Server start
