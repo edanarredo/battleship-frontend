@@ -56,6 +56,9 @@ h3 {
 #drag, #drag2, #drag3, #drag4, #drag5 {
    cursor: grab;
    position: relative;
+   background-size: contain !important;
+   height: 144px !important;
+   max-width: 648px !important;
 }
 
 #drag:active, #drag2:active, #drag3:active, #drag4:active, #drag5:active {
@@ -88,30 +91,26 @@ h3 {
 
 .battleship {
    background: url("../assets/Icons/Battleship.png") !important;
-   width: 550px !important;
-   height: 150px;
+   height: 144px !important;
 }
 
 .carrier {
    background: url("../assets/Icons/Carrier.png") !important;
-   width: 600px !important;
-   height: 140px;
+   height: 144px !important;
 }
 
 .destroyer {
    background: url("../assets/Icons/Destroyer.png") !important;
-   width: 100px;
-   height: 150px;
+   height: 144px !important;
 }
 
 .patrol {
    background: url("../assets/Icons/Patrol_Boat.png") !important;
-   width: 100px;
-   height: 150px;
+   height: 144px !important;
 }
 
 .submarine {
    background: url("../assets/Icons/Submarine.png") !important;
-   width: 100px;
-   height: 150px;
+   height: 144px !important;
 }
+
