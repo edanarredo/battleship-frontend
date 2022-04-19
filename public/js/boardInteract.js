@@ -40,7 +40,7 @@ rotatePieceButton.addEventListener('click', () => {
    }
    else {
       arrowImage.src = "./assets/arrow/east.png"
-      piece_direction = "north";
+      piece_direction = "east";
    }
 });
 
