@@ -41,12 +41,12 @@ board.addEventListener('drop', () => {
 });
 
 // Receive moved square broadcast
-socket.on('movedSquare', (data) => {
-   console.log(data);
-   updateSquarePosition(data.piece_position.xPos, data.piece_position.yPos, data.piece_position.index, 'north');
-   let new_coord = getPlacedSquareCoordinate();
-   updatePositionText(new_coord)
-});
+// socket.on('movedSquare', (data) => {
+//    console.log(data);
+//    updateSquarePosition(data.piece_position.xPos, data.piece_position.yPos, data.piece_position.index, 'north');
+//    let new_coord = getPlacedSquareCoordinate();
+//    updatePositionText(new_coord)
+// });
 
 // Receive room status after menu interaction
 socket.on('roomStatus', (data) => {

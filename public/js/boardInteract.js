@@ -5,15 +5,25 @@ function updatePositionText(coordinates) {
 
 // Return array of length 100 indicating open and occupied spaces
 function getDOMBoard() {
-   var board = document.querySelectorAll("div.box");
    var result = Array.from(Array(100).keys());
 
    // Indexes of board with a square in it are marked 1, else 0
-   board.forEach((item, index) => {
-      if (item.childElementCount > 0)
-         result[index] = 1;
-      else
-         result[index] = 0
+   boxes.forEach((item, index) => {
+      if (item.childElementCount > 0) {
+         if (item.children[0].classList.contains("battleship"))
+            result[index] = 1;
+         else if (item.children[0].classList.contains("carrier"))
+            result[index] = 2;
+         else if (item.children[0].classList.contains("destroyer"))
+            result[index] = 3;
+         else if (item.children[0].classList.contains("patrol"))
+            result[index] = 4;
+         else if (item.children[0].classList.contains("submarine"))
+            result[index] = 5;
+      }
+      else {
+         result[index] = 0;
+      }
    });
 
    return result;

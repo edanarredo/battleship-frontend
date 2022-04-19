@@ -10,13 +10,13 @@ function drag(ev) {
 function dragEnter(ev) {
   ev.preventDefault();
   this.className += " hovered";
- }
+}
 
 function dragLeave(ev) {
   ev.preventDefault();
-  if (this.classList.contains("dark")) 
+  if (this.classList.contains("dark"))
     this.className = "box dark";
-  else  
+  else
     this.className = "box";
 }
 
@@ -26,13 +26,16 @@ function drop(ev) {
   console.log(data);
   ev.target.appendChild(document.getElementById(data));
 
-  if (ev.target.classList.contains("dark")) 
+  if (ev.target.classList.contains("dark"))
     ev.target.className = "box dark";
-  else 
+  else
     ev.target.className = "box";
-  
-  replaceBoatPanel(drag_ship_queue);
+
   let result = getPlacedSquareCoordinate();
+  console.log(result);
+  insertRemainingBoatPieces(result.index, drag_ship_queue, piece_direction);
+  replaceBoatPanel(drag_ship_queue);
+
 }
 
 for (const box of boxes) {
@@ -51,7 +54,7 @@ function getPlacedSquareCoordinate() {
 
   // Find x and y position of placed square
   board.forEach((item, index) => {
-    if (item == 1) {
+    if (item == drag_ship_queue) {
       x_coord = index <= 9 ? index : (index % 10);
       y_coord = Math.floor(index / 10);
       big_index = index;
@@ -61,22 +64,9 @@ function getPlacedSquareCoordinate() {
   return { xPos: x_coord, yPos: y_coord, index: big_index };
 }
 
-// Update the position of the square block
-function updateSquarePosition(x_coord, y_coord, index) {
-  let currentPosition = getPlacedSquareCoordinate();
-
-  // If new coordinate and current not the same, update position
-  if (currentPosition.xPos != x_coord && currentPosition.yPos != y_coord) {
-    var board = document.querySelectorAll("div.box");
-    board[currentPosition.index].innerHTML = ``;
-    board[index].innerHTML = `<div draggable="true" ondragstart="drag(event)" id="drag"></div>`;
-  }
-}
-
 function replaceBoatPanel(boat_number) {
-  console.log(boat_number);
   switch (boat_number) {
-    case 1: 
+    case 1:
       document.querySelector(".carrier").style.display = "block";
       break;
     case 2:
@@ -89,8 +79,22 @@ function replaceBoatPanel(boat_number) {
       document.querySelector(".submarine").style.display = "block";
       break;
     default:
+      // Maybe change a state variable that proceeds to bombing phase
       break;
   }
   drag_ship_queue++;
 }
 
+// Update the position of the square block
+function insertRemainingBoatPieces(index, piece_type, piece_direction) {
+  let currentBoard = getDOMBoard();
+  let piece_index_board_spot = 0;
+
+  // for each size unit of boat
+  for (let piece_index = 0; piece_index < boat_sizes[drag_ship_queue-1]; piece_index++) {
+    piece_index_board_spot = (piece_direction == "south") ? 10 * piece_index : 1 + piece_index;
+    console.log("piece index: " + piece_index_board_spot);
+    console.log("index: " + index);
+    boxes[index + piece_index_board_spot].innerHTML = `<p>${piece_type}</p>`;
+  }
+}
