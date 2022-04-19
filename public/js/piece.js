@@ -24,6 +24,12 @@ function drop(ev) {
   ev.preventDefault();
   var data = ev.dataTransfer.getData("text");
   ev.target.appendChild(document.getElementById(data));
+
+  if (ev.target.classList.contains("dark")) 
+    ev.target.className = "box dark";
+  else  
+    ev.target.className = "box";
+
   let result = getPlacedSquareCoordinate();
 }
 
