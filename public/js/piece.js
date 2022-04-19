@@ -92,7 +92,7 @@ function insertRemainingBoatPieces(index, piece_type, piece_direction) {
 
   // for each size unit of boat
   for (let piece_index = 0; piece_index < boat_sizes[drag_ship_queue-1]; piece_index++) {
-    piece_index_board_spot = (piece_direction == "south") ? 10 * piece_index : 1 + piece_index;
+    piece_index_board_spot = (piece_direction == "south") ? 10 * piece_index : piece_index;
     console.log("piece index: " + piece_index_board_spot);
     console.log("index: " + index);
     boxes[index + piece_index_board_spot].innerHTML = `<p>${piece_type}</p>`;
