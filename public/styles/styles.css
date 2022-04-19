@@ -17,10 +17,6 @@ h3 {
    font-size: 2.5em;
 }
 
-#lobbyIdInput {
-   margin: .6rem;
-}
-
 .menuText {
    color: white;
 }
@@ -38,7 +34,6 @@ h3 {
    width: 50px;
    height: 50px;
    background-color: #2B90C1;
-   cursor: pointer;
 }
 
 .box:hover {
@@ -56,13 +51,19 @@ h3 {
 
 .hovered {
    background: #164258;
-   cursor: none;
 }
 
-#drag {
-   background: url("../assets/Icons/Battleship.png") !important;
-   cursor: move;
+#drag, #drag2, #drag3, #drag4, #drag5 {
+   cursor: grab;
    position: relative;
+}
+
+#drag:active, #drag2:active, #drag3:active, #drag4:active, #drag5:active {
+   cursor: grabbing;
+}
+
+#lobbyIdInput {
+   margin: .6rem;
 }
 
 #menu {
@@ -86,26 +87,31 @@ h3 {
 }
 
 .battleship {
+   background: url("../assets/Icons/Battleship.png") !important;
    width: 550px !important;
    height: 150px;
 }
 
 .carrier {
-   width: 100px;
-   height: 100px;
+   background: url("../assets/Icons/Carrier.png") !important;
+   width: 600px !important;
+   height: 140px;
 }
 
 .destroyer {
+   background: url("../assets/Icons/Destroyer.png") !important;
    width: 100px;
-   height: 100px;
+   height: 150px;
 }
 
 .patrol {
+   background: url("../assets/Icons/Patrol_Boat.png") !important;
    width: 100px;
-   height: 100px;
+   height: 150px;
 }
 
 .submarine {
+   background: url("../assets/Icons/Submarine.png") !important;
    width: 100px;
-   height: 100px;
+   height: 150px;
 }

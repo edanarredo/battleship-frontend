@@ -1,5 +1,6 @@
 var gameMode = '';
 var piece_direction = 'east';
+var drag_ship_queue = 1;
 
 class Game {
    constructor(gameMode) {
