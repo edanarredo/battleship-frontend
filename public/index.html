@@ -18,8 +18,9 @@
 </head>
 
 <body>
-
+   <!-- Main Menu  -->
    <div id="menu" class="menu align-items-center justify-content-center h-100">
+
       <!-- Logo  -->
       <img src="./assets/logo.png" id="logo"> <br>
 
@@ -95,10 +96,10 @@
 
    <div id="boardMenu" class="container py-4">
       <div id="board" class="p-5 mb-4 bg-light rounded-3">
+         <h2 id="gameStatus">Place your ships!</h2>
          <!-- Battleship Board -->
          <div class="wrapper">
             <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)">
-               <div draggable="true" ondragstart="drag(event)" id="drag"></div>
             </div>
             <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)">
                <!-- <div><img class="guess" src="./assets/Target/battleship_hitmarker.png"></div> -->
@@ -234,12 +235,13 @@
       <div class="row align-items-md-stretch">
          <div class="col-md-8">
             <div class="h-100 p-5 text-white bg-dark rounded-3">
-               <h2>Piece to plate:</h2>
+               <div class="container-fluid battleship" draggable="true" ondragstart="drag(event)" id="drag"></div>
             </div>
          </div>
          <div class="col-md-4">
             <div class="h-100 p-5 bg-light border rounded-3">
-               <h2>Piece Orientation</h2>
+               <img src="./assets/arrow/east.png" id="arrow" class="mb-2"> <br>
+               <button type="button" id="rotatePieceButton" class="btn btn-outline-dark">Rotate</button>
             </div>
          </div>
       </div>

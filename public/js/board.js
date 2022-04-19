@@ -1,4 +1,5 @@
 var gameMode = '';
+var piece_direction = 'east';
 
 class Game {
    constructor(gameMode) {

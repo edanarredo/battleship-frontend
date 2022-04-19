@@ -2,7 +2,7 @@
 
 body {
    font-family: 'Poppins' !important;
-   font-weight: 700 !important; 
+   font-weight: 700 !important;
    background-color: #1B2022 !important;
    text-align: center;
    color: #FFFFFF
@@ -14,7 +14,7 @@ h2 {
 
 h3 {
    padding-top: 5rem;
-   font-size:2.5em;
+   font-size: 2.5em;
 }
 
 #lobbyIdInput {
@@ -29,31 +29,40 @@ h3 {
    padding-top: 1rem;
 }
 
-.wrapper{
-  display:flex;
-  justify-content:center;
+.wrapper {
+   display: flex;
+   justify-content: center;
 }
 
 .box {
    width: 50px;
    height: 50px;
    background-color: #2B90C1;
+   cursor: pointer;
+}
+
+.box:hover {
+   background: #164258 !important;
 }
 
 .dark {
    background-color: #267EA8 !important;
 }
 
-#drag{
-  width:49px;
-  height:48px;
-  background: #6C6F71;
-  cursor:move;
-}
-
 .guess {
    width: 49px;
    height: 48px;
+}
+
+.hovered {
+   background: #164258;
+   cursor: none;
+}
+
+#drag {
+   background: url("../assets/Icons/Battleship.png") !important;
+   cursor: move;
+   position: relative;
 }
 
 #menu {
@@ -69,4 +78,34 @@ h3 {
 #logo {
    height: 300px;
    width: 300px;
+}
+
+#arrow {
+   height: 60px;
+   width: 60px;
+}
+
+.battleship {
+   width: 550px !important;
+   height: 150px;
+}
+
+.carrier {
+   width: 100px;
+   height: 100px;
+}
+
+.destroyer {
+   width: 100px;
+   height: 100px;
+}
+
+.patrol {
+   width: 100px;
+   height: 100px;
+}
+
+.submarine {
+   width: 100px;
+   height: 100px;
 }

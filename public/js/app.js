@@ -10,6 +10,8 @@ var joinGameBtn = document.getElementById('joinGameBtn');
 var lobbyIdInput = document.getElementById('lobbyIdInput');
 var startGameBtn = document.getElementById('start');
 var opponentListItem = document.getElementById('opponentListItem');
+var rotatePieceButton = document.getElementById('rotatePieceButton');
+var boxes = document.querySelectorAll(".box");
 
 // Some global variables
 var lobbyId = '';
