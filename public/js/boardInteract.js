@@ -1,6 +1,7 @@
 // Update position text on web page and return coordinates
 function updatePositionText(coordinates) {
-   document.getElementById("pos").innerText = `Square Position(x,y): [${coordinates.xPos}, ${coordinates.yPos}, n]`;
+   // document.getElementById("pos").innerText = `Square Position(x,y): [${coordinates.xPos}, ${coordinates.yPos}, n]`;
+   return true;
 }
 
 // Return array of length 100 indicating open and occupied spaces
