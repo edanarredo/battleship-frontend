@@ -30,10 +30,26 @@ h3 {
    justify-content: center;
 }
 
+.boards {
+   padding-top: 2rem;
+}
+
 .box {
    width: 50px;
    height: 50px;
    background-color: #2B90C1;
+}
+
+.boxOpponent {
+   width: 50px;
+   height: 50px;
+   background-color: #e47a62;
+}
+
+.opponentDark {
+   width: 50px;
+   height: 50px;
+   background-color: #c44427e2;
 }
 
 .box:hover {
@@ -92,24 +108,29 @@ h3 {
 .battleship {
    background: url("../assets/Icons/Battleship.png") !important;
    height: 144px !important;
+   background-repeat: no-repeat;
 }
 
 .carrier {
    background: url("../assets/Icons/Carrier.png") !important;
    height: 144px !important;
+   background-repeat: no-repeat;
 }
 
 .destroyer {
    background: url("../assets/Icons/Destroyer.png") !important;
    height: 144px !important;
+   background-repeat: no-repeat;
 }
 
 .patrol {
    background: url("../assets/Icons/Patrol_Boat.png") !important;
    height: 144px !important;
+   background-repeat: no-repeat;
 }
 
 .submarine {
    background: url("../assets/Icons/Submarine.png") !important;
    height: 144px !important;
+   background-repeat: no-repeat;
 }

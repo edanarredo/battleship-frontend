@@ -12,6 +12,7 @@ var startGameBtn = document.getElementById('start');
 var opponentListItem = document.getElementById('opponentListItem');
 var rotatePieceButton = document.getElementById('rotatePieceButton');
 var boxes = document.querySelectorAll(".box");
+var opponentBoxes = document.querySelectorAll(".boxOpponent");
 var shipBay = document.getElementById("shipBay");
 
 // Some global variables
