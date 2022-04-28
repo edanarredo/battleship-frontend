@@ -1,32 +1,40 @@
-// Initialize Game State and Render Boards
-function init() {
+var gameMode = '';
+var piece_direction = 'east';
+var drag_ship_queue = 1;
+var boats = {"B": 1, "C": 2, "D": 3, "P": 4, "S": 5};
+var boat_sizes = [4,5,3,2,3];
+
+function initPlayerGame() {
    board.style.display = "block";
    menuScreen.style.display = "none";
 }
 
-// Return array of length 100 indicating open and occupied spaces
-function getBoard() {
-   var board = document.querySelectorAll("div.box");
-   var result = Array.from(Array(100).keys());
-
-   // Indexes of board with a square in it are marked 1, else 0
-   board.forEach((item, index) => {
-      if (item.childElementCount > 0)
-         result[index] = 1;
-      else
-         result[index] = 0
-   });
-
-   return result;
+function initBotGame() {
+   board.style.display = "block";
+   menuScreen.style.display = "none";
+   gameMode = 'singleplayer';
 }
 
-// Update position text on web page and return coordinates
-function updatePositionText(coordinates) {
-   document.getElementById("pos").innerText = `Square Position(x,y): [${coordinates.xPos}, ${coordinates.yPos}, n]`;
+function placeBoat(boat) {
+   return boat;
 }
 
-function startBotGame() {
-   // need to add code to run local game
+function guessSpace(targetBoard, player) {
+   return { targetBoard: targetBoard, player: player };
+}
+
+function updateOpponentBoard() {
+   if (gameMode == "multiplayer") {
+      return true;
+   }
+   else {
+      return false;
+   }
+}
+
+function startBombingPhase() {
    return true;
 }
+
+
 

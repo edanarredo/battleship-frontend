@@ -2,7 +2,7 @@
 
 body {
    font-family: 'Poppins' !important;
-   font-weight: 700 !important; 
+   font-weight: 700 !important;
    background-color: #1B2022 !important;
    text-align: center;
    color: #FFFFFF
@@ -10,25 +10,28 @@ body {
 
 h2 {
    padding: 10px 20px;
-   color: white;
 }
 
 h3 {
    padding-top: 5rem;
-   font-size:2.5em;
+   font-size: 2.5em;
 }
 
-#lobbyIdInput {
-   margin: .6rem;
+.menuText {
+   color: white;
 }
 
 .text-center {
    padding-top: 1rem;
 }
 
-.wrapper{
-  display:flex;
-  justify-content:center;
+.wrapper {
+   display: flex;
+   justify-content: center;
+}
+
+.boards {
+   padding-top: 2rem;
 }
 
 .box {
@@ -37,15 +40,24 @@ h3 {
    background-color: #2B90C1;
 }
 
-.dark {
-   background-color: #267EA8 !important;
+.boxOpponent {
+   width: 50px;
+   height: 50px;
+   background-color: #e47a62;
 }
 
-#drag{
-  width:49px;
-  height:48px;
-  background: #6C6F71;
-  cursor:move;
+.opponentDark {
+   width: 50px;
+   height: 50px;
+   background-color: #c44427e2;
+}
+
+.box:hover {
+   background: #164258 !important;
+}
+
+.dark {
+   background-color: #267EA8;
 }
 
 .guess {
@@ -53,11 +65,72 @@ h3 {
    height: 48px;
 }
 
-#menu {
-   display: block;
-   padding-top: 15%;
+.hovered {
+   background: #164258;
 }
 
-#board {
-   display: none !important;
+#drag, #drag2, #drag3, #drag4, #drag5 {
+   cursor: grab;
+   position: relative;
+   background-size: contain !important;
+   height: 144px !important;
+   max-width: 648px !important;
+}
+
+#drag:active, #drag2:active, #drag3:active, #drag4:active, #drag5:active {
+   cursor: grabbing;
+}
+
+#lobbyIdInput {
+   margin: .6rem;
+}
+
+#menu {
+   display: block;
+   padding-top: 13%;
+}
+
+#boardMenu {
+   display: none;
+   padding-top: 13%;
+}
+
+#logo {
+   height: 250px;
+   width: 300px;
+}
+
+#arrow {
+   height: 60px;
+   width: 60px;
+}
+
+.battleship {
+   background: url("../assets/Icons/Battleship.png") !important;
+   height: 144px !important;
+   background-repeat: no-repeat;
+}
+
+.carrier {
+   background: url("../assets/Icons/Carrier.png") !important;
+   height: 144px !important;
+   background-repeat: no-repeat;
+}
+
+.destroyer {
+   background: url("../assets/Icons/Destroyer.png") !important;
+   height: 144px !important;
+   background-repeat: no-repeat;
+}
+
+.patrol {
+   background: url("../assets/Icons/Patrol_Boat.png") !important;
+   height: 144px !important;
+   background-repeat: no-repeat;
+}
+
+.submarine {
+   background: url("../assets/Icons/Submarine.png") !important;
+   height: 144px !important;
+   background-repeat: no-repeat;
 }

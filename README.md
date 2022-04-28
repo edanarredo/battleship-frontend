@@ -1,6 +1,8 @@
 
 # Samos - Battleship Game
 
+![image](https://drive.google.com/uc?export=view&id=1mOO8Pwt8VkVgczATy7h-eYWKE4EDVU_h)
+
 Samos will allow users to play a game of battleship with other users online or against a bot. Battleship is a game where two players attempt to guess the other players location of their ships on a grid based board.
 
 ## Building With
