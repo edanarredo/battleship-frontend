@@ -79,7 +79,8 @@ function replaceBoatPanel(boat_number) {
       document.querySelector(".submarine").style.display = "block";
       break;
     default:
-      // Maybe change a state variable that proceeds to bombing phase
+      makeBotBoard();
+      startBombingPhase();
       break;
   }
   drag_ship_queue++;

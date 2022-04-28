@@ -23,5 +23,13 @@ function guessSpace(targetBoard, player) {
    return { targetBoard: targetBoard, player: player };
 }
 
+function makeBotBoard() {
+   return true;
+}
+
+function startBombingPhase() {
+   return true;
+}
+
 
 
