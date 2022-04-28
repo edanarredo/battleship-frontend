@@ -23,8 +23,13 @@ function guessSpace(targetBoard, player) {
    return { targetBoard: targetBoard, player: player };
 }
 
-function makeBotBoard() {
-   return true;
+function updateOpponentBoard() {
+   if (gameMode == "multiplayer") {
+      return true;
+   }
+   else {
+      return false;
+   }
 }
 
 function startBombingPhase() {

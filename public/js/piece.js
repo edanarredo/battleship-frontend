@@ -78,7 +78,8 @@ function replaceBoatPanel(boat_number) {
       document.querySelector(".submarine").style.display = "block";
       break;
     default:
-      makeBotBoard();
+      
+      updateOpponentBoard();
       startBombingPhase();
       break;
   }

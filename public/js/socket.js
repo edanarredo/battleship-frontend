@@ -16,15 +16,19 @@ startGameBtn.addEventListener('click', () => {
 });
 
 // Guess Event
-board.addEventListener('click', (event) => {
+function makeGuess(ev) {
    if (gameMode == 'multiplayer') {
       socket.emit('guess', {
-         piece_location: event.target.parentNode,
+         piece_location: ev.target,
          piece_type: "guess",
          piece_direction: "north"
       });
+   } 
+   else {
+      // something
+      return true;
    }
-});
+}
 
 // Square move event
 board.addEventListener('drop', () => {
