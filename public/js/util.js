@@ -1,9 +1,3 @@
-// Update position text on web page and return coordinates
-function updatePositionText(coordinates) {
-   // document.getElementById("pos").innerText = `Square Position(x,y): [${coordinates.xPos}, ${coordinates.yPos}, n]`;
-   return true;
-}
-
 // Return array of length 100 indicating open and occupied spaces
 function getDOMBoard(board="SELF") {
    var result = Array.from(Array(100).keys());
@@ -32,17 +26,35 @@ function getDOMBoard(board="SELF") {
    return result;
 }
 
-// Rotate
-rotatePieceButton.addEventListener('click', () => {
-   let arrowImage = document.getElementById("arrow");
-
-   if (arrowImage.src.includes("east")) {
-      arrowImage.src = "./assets/arrow/south.png";
-      piece_direction = "south";
+function getPieceImage(index, piece_type, piece_direction) {
+   let tile_img_path = "";
+   let directory = (piece_direction == "south" ? `"../assets/Vertical/` : `"../assets/Horizontal/`);
+ 
+   switch (piece_type) {
+     case 1:
+       tile_img_path = `${directory}4/4_${index}.png"`;
+       break;
+     case 2:
+       tile_img_path = `${directory}5/5_${index}.png"`;
+       break;
+     case 3:
+       tile_img_path = `${directory}3A/3A_${index}.png"`;
+       break;
+     case 4:
+       tile_img_path = `${directory}2/2_${index}.png"`;
+       break;
+     case 5:
+       tile_img_path = `${directory}3B/3B_${index}.png"`;
+       break;
+     default:
+       break;
    }
-   else {
-      arrowImage.src = "./assets/arrow/east.png"
-      piece_direction = "east";
-   }
-});
+   console.log(tile_img_path);
+   return tile_img_path;
+ }
 
+function copyToClipboard() {
+   navigator.clipboard.writeText(lobbyId);
+   alert(`'${lobbyId}' copied to clipboard!`);
+}
+ 
