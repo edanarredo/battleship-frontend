@@ -67,5 +67,16 @@ socket.on('gameReady', (data) => {
 
 // Receive flag to start game.
 socket.on('startGame', (data) => {
-   console.log('here!');
+   if (isHost) {
+      let modalElementHost = document.getElementById("exampleModal");
+      let modal = bootstrap.Modal.getInstance(modalElementHost);
+      modal.hide();
+   } 
+   else {
+      let modalElementJoiner = document.getElementById("exampleModal2");
+      let modal2 = bootstrap.Modal.getInstance(modalElementJoiner);
+      modal2.hide();
+   }
+
+   initPlayerGame();
 });

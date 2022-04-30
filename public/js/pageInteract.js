@@ -11,3 +11,11 @@ rotatePieceButton.addEventListener('click', () => {
       piece_direction = "east";
    }
 });
+
+function becomeHost() {
+   isHost = true;
+}
+
+function surrenderHost() {
+   isHost = false;
+}

@@ -29,7 +29,7 @@
 
       <!-- Multiplayer Create Game Button -->
       <button type="button" id="createGameBtn" class="btn btn-light" data-bs-toggle="modal"
-         data-bs-target="#exampleModal">Start Lobby</button>
+         data-bs-target="#exampleModal" onclick="becomeHost();">Start Lobby</button>
 
       <!-- Lobby Modal Menu  -->
       <div class="modal fade" id="exampleModal" data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1"
@@ -55,7 +55,7 @@
                   <button onclick="copyToClipboard()">Copy to Clipboard</button>
                </div>
                <div class="modal-footer">
-                  <button id="close" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button id="close" type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="surrenderHost()">Close</button>
                   <button id="start" type="button" class="btn btn-danger" disabled>Start!</button>
                </div>
             </div>

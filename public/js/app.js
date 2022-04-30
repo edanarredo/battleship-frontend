@@ -15,18 +15,24 @@ var boxes = document.querySelectorAll(".box");
 var shipBay = document.getElementById("shipBay");
 var opponentBoard = Array.from(Array(100).keys());
 var opponentBoxes, lobbyId, gameMode;
-
-// Game States 
+var isHost = false;
 
 function initPlayerGame() {
    board.style.display = "block";
    menuScreen.style.display = "none";
+   gameMode = 'multiplayer';
+
+   initOpponentBoard();
 }
 
 function initBotGame() {
    board.style.display = "block";
    menuScreen.style.display = "none";
    gameMode = 'singleplayer';
+   initOpponentBoard();
+}
+
+function initOpponentBoard() {
    opponentBoard.forEach(index => { opponentBoard[index] = 0 });
 }
 
