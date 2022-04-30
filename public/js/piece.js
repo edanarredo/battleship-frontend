@@ -32,8 +32,7 @@ function drop(ev) {
     ev.target.className = "box";
 
   let result = getPlacedSquareCoordinate();
-  console.log(result);
-  insertRemainingBoatPieces(result.index, drag_ship_queue, piece_direction);
+  insertRemainingBoatPieces(result.index, drag_ship_queue, piece_direction, "SELF", boat_sizes[drag_ship_queue-1]);
   replaceBoatPanel(drag_ship_queue);
 }
 
@@ -46,7 +45,7 @@ for (const box of boxes) {
 function getPlacedSquareCoordinate() {
 
   // Initialize Variables
-  let board = getDOMBoard();
+  let board = getDOMBoard("SELF");
   let x_coord = 0;
   let y_coord = 0;
   let big_index = 0;
@@ -78,7 +77,6 @@ function replaceBoatPanel(boat_number) {
       document.querySelector(".submarine").style.display = "block";
       break;
     default:
-      
       updateOpponentBoard();
       startBombingPhase();
       break;
@@ -87,16 +85,18 @@ function replaceBoatPanel(boat_number) {
 }
 
 // Update the position of the square block
-function insertRemainingBoatPieces(index, piece_type, piece_direction) {
-  let currentBoard = getDOMBoard();
+function insertRemainingBoatPieces(index, piece_type, piece_direction, board, piece_length) {
   let piece_index_board_spot = 0;
 
   // for each size unit of boat
-  for (let piece_index = 0; piece_index < boat_sizes[drag_ship_queue-1]; piece_index++) {
+  for (let piece_index = 0; piece_index < piece_length; piece_index++) {
     piece_index_board_spot = (piece_direction == "south") ? (10 * piece_index) + index : piece_index + index;
-    let piece_img_path = getPieceImage(piece_index, piece_type, piece_direction);
-    boxes[piece_index_board_spot].innerHTML = `<div style="background: url(${piece_img_path}); background-repeat: no-repeat;" >${piece_type}</div>`;
-    console.log("ok");
+    if (board == "SELF") {
+      let piece_img_path = getPieceImage(piece_index, piece_type, piece_direction);
+      boxes[piece_index_board_spot].innerHTML = `<div style="background: url(${piece_img_path}); background-repeat: no-repeat;" >${piece_type}</div>`;
+    }
+    else if (board == "OPPONENT")
+      opponentBoard[piece_index_board_spot] = piece_type;
   }
 }
 

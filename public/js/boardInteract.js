@@ -5,11 +5,13 @@ function updatePositionText(coordinates) {
 }
 
 // Return array of length 100 indicating open and occupied spaces
-function getDOMBoard() {
+function getDOMBoard(board="SELF") {
    var result = Array.from(Array(100).keys());
 
+   let gameBoard = board == "SELF" ? boxes : opponentBoard; 
+
    // Indexes of board with a square in it are marked 1, else 0
-   boxes.forEach((item, index) => {
+   gameBoard.forEach((item, index) => {
       if (item.childElementCount > 0) {
          if (item.children[0].classList.contains("battleship"))
             result[index] = 1;
