@@ -13,8 +13,8 @@ var opponentListItem = document.getElementById('opponentListItem');
 var rotatePieceButton = document.getElementById('rotatePieceButton');
 var boxes = document.querySelectorAll(".box");
 var shipBay = document.getElementById("shipBay");
+var opponentBoard = Array.from(Array(100).keys());
 var opponentBoxes, lobbyId, gameMode;
-
 
 // Game States 
 

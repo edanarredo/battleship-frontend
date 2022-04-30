@@ -32,8 +32,7 @@ function makeGuess(ev) {
 
 // Square move event
 board.addEventListener('drop', () => {
-   let new_coord = getPlacedSquareCoordinate();
-   updatePositionText(new_coord)
+   let new_coord = getLastPlacedPieceCoordinates();
 
    if (gameMode == 'multiplayer') {
       socket.emit("movedSquare", {

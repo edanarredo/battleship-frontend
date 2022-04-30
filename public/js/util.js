@@ -49,7 +49,6 @@ function getPieceImage(index, piece_type, piece_direction) {
      default:
        break;
    }
-   console.log(tile_img_path);
    return tile_img_path;
  }
 
@@ -57,4 +56,10 @@ function copyToClipboard() {
    navigator.clipboard.writeText(lobbyId);
    alert(`'${lobbyId}' copied to clipboard!`);
 }
+
+// Init player board with event listeners
+for (const box of boxes) {
+   box.addEventListener("dragenter", dragEnter);
+   box.addEventListener("dragleave", dragLeave);
+ }
  

@@ -3,13 +3,6 @@ var piece_direction = 'east';
 var drag_ship_queue = 1;
 var boats = { "B": 1, "C": 2, "D": 3, "P": 4, "S": 5 };
 var boat_sizes = [4, 5, 3, 2, 3];
-var opponentBoard = Array.from(Array(100).keys());
-
-// Init player board with event listeners
-for (const box of boxes) {
-   box.addEventListener("dragenter", dragEnter);
-   box.addEventListener("dragleave", dragLeave);
- }
 
 function updateOpponentBoard() {
    if (gameMode == "multiplayer") {
@@ -24,7 +17,6 @@ function updateOpponentBoard() {
       boat_sizes.forEach((element, index) => {
          let direction = (Math.random() < .5) ? "east" : "south";
          while (!canBePlaced) {
-            console.log(element, index, opponentPlaceIndex);
             switch (element) {
                case 2:
                   x = (direction == "east") ? Math.random() * 9 : Math.random() * 10;
@@ -52,7 +44,6 @@ function updateOpponentBoard() {
             boat_type = Object.values(boats)[index];
             canBePlaced = boatCanBePlaced(opponentPlaceIndex, x, y, element, direction, "OPPONENT", element);
          }
-         console.log(`type: ${boat_type}, x: ${x}, y: ${y}, index: ${index}, canBePlaced${canBePlaced}`);
          insertRemainingBoatPieces(opponentPlaceIndex, boat_type, direction, "OPPONENT", element);
          canBePlaced = false;
       });
