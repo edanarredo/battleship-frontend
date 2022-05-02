@@ -27,8 +27,10 @@ io.on('connection', (socket) => {
    socket.on('createGame', (data) => {
       let roomId = lobby.generateId();
       socket.join(roomId)
-      clientRooms[roomId] = [];
-      clientRooms[roomId].push(socket.id);
+      clientRooms[roomId] = {};
+      clientRooms[roomId][socket.id] = {
+         points: 0
+      };
       socket.emit('roomStatus', {status: true, roomId: roomId});
    });
 
@@ -36,7 +38,9 @@ io.on('connection', (socket) => {
    socket.on('joinGame', (data) => {
       let lobbyId = data.code
       if (clientRooms[lobbyId]) {
-         clientRooms[lobbyId].push(`${socket.id}`);
+         clientRooms[lobbyId][socket.id] = {
+            points: 0
+         };
          socket.join(lobbyId);
          socket.to(lobbyId).emit('gameReady', {status: true, roomId: lobbyId});
       }
@@ -45,7 +49,7 @@ io.on('connection', (socket) => {
    });
 
    // Emit square position
-   socket.on('movedSquare', (data) => {
+   socket.on('guessSpace', (data) => {
       socket.broadcast.emit("movedSquare", data);
    });
 
@@ -57,7 +61,14 @@ io.on('connection', (socket) => {
    // Emit game start for all clients in room.
    socket.on('startGame', (data) => {
       io.in(data.lobbyId).emit('startGame', {roomId: data.lobbyId});
+      console.log(clientRooms);
    });
+
+   socket.on('postBoard', (data) => {
+      console.log(data);
+      clientRooms[data.lobbyId][socket.id]['board'] = data.board;
+      socket.broadcast.emit('receiveBoard', {fromUser: socket.id, opponentBoard: clientRooms[data.lobbyId][socket.id]['board'] })
+   })
 });
 
 // Server start
