@@ -23,7 +23,6 @@ function dragLeave(ev) {
 function drop(ev) {
   ev.preventDefault();
   var data = ev.dataTransfer.getData("text");
-  console.log(data);
   ev.target.appendChild(document.getElementById(data));
 
   if (ev.target.classList.contains("dark"))
@@ -31,25 +30,16 @@ function drop(ev) {
   else
     ev.target.className = "box";
 
-  let result = getPlacedSquareCoordinate();
-  console.log(result);
-  insertRemainingBoatPieces(result.index, drag_ship_queue, piece_direction);
-  replaceBoatPanel(drag_ship_queue);
-}
-
-for (const box of boxes) {
-  box.addEventListener("dragenter", dragEnter);
-  box.addEventListener("dragleave", dragLeave);
+  let result = getLastPlacedPieceCoordinates();
+  insertRemainingBoatPieces(result.index, drag_ship_queue, piece_direction, "SELF", boat_sizes[drag_ship_queue-1]);
+  advancePlacePiecePhase(drag_ship_queue);
 }
 
 // Get coordinates of piece that was just moved.
-function getPlacedSquareCoordinate() {
+function getLastPlacedPieceCoordinates() {
 
-  // Initialize Variables
   let board = getDOMBoard();
-  let x_coord = 0;
-  let y_coord = 0;
-  let big_index = 0;
+  let x_coord, y_coord, big_index;
 
   // Find x and y position of placed square
   board.forEach((item, index) => {
@@ -63,7 +53,7 @@ function getPlacedSquareCoordinate() {
   return { xPos: x_coord, yPos: y_coord, index: big_index };
 }
 
-function replaceBoatPanel(boat_number) {
+function advancePlacePiecePhase(boat_number) {
   switch (boat_number) {
     case 1:
       document.querySelector(".carrier").style.display = "block";
@@ -78,8 +68,10 @@ function replaceBoatPanel(boat_number) {
       document.querySelector(".submarine").style.display = "block";
       break;
     default:
-      
-      updateOpponentBoard();
+      if (gameMode == 'multiplayer') 
+        uploadBoard();
+      else
+        setupBotOpponentBoard();
       startBombingPhase();
       break;
   }
@@ -87,42 +79,18 @@ function replaceBoatPanel(boat_number) {
 }
 
 // Update the position of the square block
-function insertRemainingBoatPieces(index, piece_type, piece_direction) {
-  let currentBoard = getDOMBoard();
+function insertRemainingBoatPieces(index, piece_type, piece_direction, board, piece_length) {
   let piece_index_board_spot = 0;
 
   // for each size unit of boat
-  for (let piece_index = 0; piece_index < boat_sizes[drag_ship_queue-1]; piece_index++) {
+  for (let piece_index = 0; piece_index < piece_length; piece_index++) {
     piece_index_board_spot = (piece_direction == "south") ? (10 * piece_index) + index : piece_index + index;
-    let piece_img_path = getPieceImage(piece_index, piece_type, piece_direction);
-    boxes[piece_index_board_spot].innerHTML = `<div style="background: url(${piece_img_path}); background-repeat: no-repeat;" >${piece_type}</div>`;
-    console.log("ok");
+    if (board == "SELF") {
+      let piece_img_path = getPieceImage(piece_index, piece_type, piece_direction);
+      boxes[piece_index_board_spot].innerHTML = `<div style="background: url(${piece_img_path}); background-repeat: no-repeat;" >${piece_type}</div>`;
+      userBoard[piece_index_board_spot] = piece_type;
+    }
+    else if (board == "OPPONENT")
+      opponentBoard[piece_index_board_spot] = piece_type;
   }
-}
-
-function getPieceImage(index, piece_type, piece_direction) {
-  let tile_img_path = "";
-  let directory = (piece_direction == "south" ? `"../assets/Vertical/` : `"../assets/Horizontal/`);
-
-  switch (piece_type) {
-    case 1:
-      tile_img_path = `${directory}4/4_${index}.png"`;
-      break;
-    case 2:
-      tile_img_path = `${directory}5/5_${index}.png"`;
-      break;
-    case 3:
-      tile_img_path = `${directory}3A/3A_${index}.png"`;
-      break;
-    case 4:
-      tile_img_path = `${directory}2/2_${index}.png"`;
-      break;
-    case 5:
-      tile_img_path = `${directory}3B/3B_${index}.png"`;
-      break;
-    default:
-      break;
-  }
-  console.log(tile_img_path);
-  return tile_img_path;
 }

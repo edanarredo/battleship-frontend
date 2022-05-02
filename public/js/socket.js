@@ -1,11 +1,14 @@
 // Create Game Button
 createGameBtn.addEventListener('click', () => {
    socket.emit('createGame', "create");
+   isHost = true;
 });
 
 // Join Game Button
 joinGameBtn.addEventListener('click', () => {
    const code = lobbyIdInput.value;
+   lobbyId = code;
+   isHost = false;
    socket.emit('joinGame', { code: code });
 });
 
@@ -13,6 +16,10 @@ joinGameBtn.addEventListener('click', () => {
 startGameBtn.addEventListener('click', () => {
    socket.emit('startGame', { lobbyId: lobbyId });
    gameMode = 'multiplayer';
+});
+
+bombingBtn.addEventListener('click', () => {
+   socket.emit('startBombing', { lobbyId: lobbyId });
 });
 
 // Guess Event
@@ -23,34 +30,22 @@ function makeGuess(ev) {
          piece_type: "guess",
          piece_direction: "north"
       });
-   } 
+   }
    else {
       // something
       return true;
    }
 }
 
-// Square move event
-board.addEventListener('drop', () => {
-   let new_coord = getPlacedSquareCoordinate();
-   updatePositionText(new_coord)
-
+function uploadBoard() {
    if (gameMode == 'multiplayer') {
-      socket.emit("movedSquare", {
-         piece_position: new_coord,
-         piece_type: "warship",
-         piece_direction: "north"
+      socket.emit('postBoard', {
+         board: userBoard,
+         lobbyId: lobbyId
       });
    }
-});
-
-// Receive moved square broadcast
-// socket.on('movedSquare', (data) => {
-//    console.log(data);
-//    updateSquarePosition(data.piece_position.xPos, data.piece_position.yPos, data.piece_position.index, 'north');
-//    let new_coord = getPlacedSquareCoordinate();
-//    updatePositionText(new_coord)
-// });
+   showBombingButton();
+}
 
 // Receive room status after menu interaction
 socket.on('roomStatus', (data) => {
@@ -76,5 +71,19 @@ socket.on('gameReady', (data) => {
 
 // Receive flag to start game.
 socket.on('startGame', (data) => {
-   console.log('here!');
+   if (isHost) {
+      let modalElementHost = document.getElementById("exampleModal");
+      let modal = bootstrap.Modal.getInstance(modalElementHost);
+      modal.hide();
+   }
+   else {
+      let modalElementJoiner = document.getElementById("exampleModal2");
+      let modal2 = bootstrap.Modal.getInstance(modalElementJoiner);
+      modal2.hide();
+   }
+   initPlayerGame();
+});
+
+socket.on('receiveBoard', (data) => {
+   enableBombingButton(isHost);
 });
