@@ -23,17 +23,13 @@ bombingBtn.addEventListener('click', () => {
 });
 
 // Guess Event
-function makeGuess(ev) {
+function makeMultiplayerGuess(ev) {
    if (gameMode == 'multiplayer') {
       socket.emit('guess', {
          piece_location: ev.target,
          piece_type: "guess",
          piece_direction: "north"
       });
-   }
-   else {
-      // something
-      return true;
    }
 }
 

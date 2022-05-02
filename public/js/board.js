@@ -5,6 +5,22 @@ var boats = { "B": 1, "C": 2, "D": 3, "P": 4, "S": 5 };
 var boat_sizes = [4, 5, 3, 2, 3];
 var opponentPoints = 0;
 var userPoints = 0;
+var all_ship_statuses = {
+   user: {
+      'B': 4,
+      'C': 5,
+      'D': 3,
+      'P': 2,
+      'S': 3
+   },
+   opponent: {
+      'B': 4,
+      'C': 5,
+      'D': 3,
+      'P': 2,
+      'S': 3
+   }
+};
 
 function setupBotOpponentBoard() {
    let x = 0, y = 0, opponentPlaceIndex = 0, boat_type = 0;

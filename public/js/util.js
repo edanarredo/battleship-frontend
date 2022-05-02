@@ -52,33 +52,6 @@ function getPieceImage(index, piece_type, piece_direction) {
    return tile_img_path;
 }
 
-// function printBoard() {
-//    let result = Array.from(Array(100).keys());
-
-//    for (let i = 0; i < 100; i++) {
-//       try {
-//          if (board[i].children.length > 0) {
-//             if (board[i].children[0].outerHTML.includes("1"))
-//                result[i] = 1;
-//             else if (board[i].children[0].outerHTML.includes("2"))
-//                result[i] = 2;
-//             else if (board[i].children[0].outerHTML.includes("3"))
-//                result[i] = 3;
-//             else if (board[i].children[0].outerHTML.includes("4"))
-//                result[i] = 4;
-//             else if (board[i].children[0].outerHTML.includes("5"))
-//                result[i] = 5;
-//             else {
-//                result[i] = 0;
-//             }
-//          }
-//       } catch {
-//          throw `${board[i]}, ${i}`;
-//       }
-//       return result;
-//    }
-// }
-
 function copyToClipboard() {
    navigator.clipboard.writeText(lobbyId);
    alert(`'${lobbyId}' copied to clipboard!`);
@@ -88,4 +61,48 @@ function copyToClipboard() {
 for (const box of boxes) {
    box.addEventListener("dragenter", dragEnter);
    box.addEventListener("dragleave", dragLeave);
+}
+
+for (let i = 0; i < 100; i++) {
+   opponentBoxes[i].setAttribute('data-index', `${i}`);
+}
+
+function makeGuess(ev) {
+   var guessIndex = ev.target.dataset.index;
+
+   // if game hasn't ended and user's turn.
+   if (usersTurn && (userPoints != 17 || opponentPoints != 17)) {
+      if (gameMode == "multiplayer")
+         makeMultiplayerGuess(guessIndex);
+      else
+         makeSinglePlayerGuess(guessIndex);
+
+      console.log(`user's turn: ${usersTurn}`);
+      console.log(`game status: ${JSON.stringify(all_ship_statuses)}`);
+   } else {
+      console.log("not your turn.");
+   }
+}
+
+function makeSinglePlayerGuess(guessIndex) {
+   var guessTileValue = opponentBoard[guessIndex];
+
+   if (guessTileValue > 0) {
+      // decrease boat value for opponent
+      all_ship_statuses['opponent'][Object.keys(boats)[guessTileValue - 1]]--;
+      // increase score
+      userPoints++;
+      // set tile to new value indicating hit
+      opponentBoxes[guessIndex].innerText = "-1";
+      // maintain turn until miss
+      usersTurn = true;
+   }
+   else if (opponentBoard[guessIndex].innerText < 0) {
+      usersTurn = true;
+   }
+   else {
+      // end turn if tile is empty (innerText == 0)
+      usersTurn = false;
+      botGuess();
+   }
 }
