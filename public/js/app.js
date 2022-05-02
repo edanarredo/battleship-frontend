@@ -17,7 +17,6 @@ var boxes = document.querySelectorAll(".box");
 var shipBay = document.getElementById("shipBay");
 var opponentBoard = Array.from(Array(100).keys());
 var userBoard = Array.from(Array(100).keys());
-var botGuesses = Array.from(Array(100).keys());
 var opponentBoxes = document.querySelectorAll(".boxOpponent");
 var gameStatus = document.getElementById("gameStatus");
 var lobbyId, gameMode;
