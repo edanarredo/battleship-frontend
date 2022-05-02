@@ -201,6 +201,7 @@ int Computer::tryAdjacent(battleship target, int &x, int &y) { //this took me 8 
                     } else {
                         y--;
                     }
+                    return 0;
                 }
                 else if (shots.rbegin()[1].first == x) { //if last two shots are horizontal/vertical
                     if (y == 0 || y == 9){
