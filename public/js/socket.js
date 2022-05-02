@@ -51,6 +51,7 @@ function uploadBoard() {
          lobbyId: lobbyId
       });
    }
+   showStartButton();
 }
 
 // Receive room status after menu interaction
@@ -91,6 +92,6 @@ socket.on('startGame', (data) => {
 });
 
 socket.on('receiveBoard', (data) => {
-   console.log(data);
-   // opponentBoard = data.board;
+   enableBombingButton();
+   startBombingPhase();
 })

@@ -38,7 +38,7 @@ function drop(ev) {
 // Get coordinates of piece that was just moved.
 function getLastPlacedPieceCoordinates() {
 
-  let board = getDOMBoard("SELF");
+  let board = getDOMBoard();
   let x_coord, y_coord, big_index;
 
   // Find x and y position of placed square
@@ -68,7 +68,10 @@ function advancePlacePiecePhase(boat_number) {
       document.querySelector(".submarine").style.display = "block";
       break;
     default:
-      updateOpponentBoard();
+      if (gameMode == 'multiplayer') 
+        uploadBoard();
+      else
+        setupBotOpponentBoard();
       startBombingPhase();
       break;
   }
@@ -85,6 +88,7 @@ function insertRemainingBoatPieces(index, piece_type, piece_direction, board, pi
     if (board == "SELF") {
       let piece_img_path = getPieceImage(piece_index, piece_type, piece_direction);
       boxes[piece_index_board_spot].innerHTML = `<div style="background: url(${piece_img_path}); background-repeat: no-repeat;" >${piece_type}</div>`;
+      userBoard[piece_index_board_spot] = piece_type;
     }
     else if (board == "OPPONENT")
       opponentBoard[piece_index_board_spot] = piece_type;

@@ -68,7 +68,7 @@ io.on('connection', (socket) => {
       console.log(data);
       clientRooms[data.lobbyId][socket.id]['board'] = data.board;
       socket.broadcast.emit('receiveBoard', {fromUser: socket.id, opponentBoard: clientRooms[data.lobbyId][socket.id]['board'] })
-   })
+   });
 });
 
 // Server start
