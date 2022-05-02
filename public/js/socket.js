@@ -2,6 +2,7 @@
 createGameBtn.addEventListener('click', () => {
    socket.emit('createGame', "create");
    isHost = true;
+   usersTurn = true;
 });
 
 // Join Game Button
@@ -9,6 +10,7 @@ joinGameBtn.addEventListener('click', () => {
    const code = lobbyIdInput.value;
    lobbyId = code;
    isHost = false;
+   usersTurn = false;
    socket.emit('joinGame', { code: code });
 });
 
@@ -22,22 +24,12 @@ bombingBtn.addEventListener('click', () => {
    socket.emit('startBombing', { lobbyId: lobbyId });
 });
 
-// Guess Event
-function makeMultiplayerGuess(ev) {
-   if (gameMode == 'multiplayer') {
-      socket.emit('guess', {
-         piece_location: ev.target,
-         piece_type: "guess",
-         piece_direction: "north"
-      });
-   }
-}
-
 function uploadBoard() {
    if (gameMode == 'multiplayer') {
       socket.emit('postBoard', {
          board: userBoard,
-         lobbyId: lobbyId
+         roomId: lobbyId,
+         userId: userId
       });
    }
    showBombingButton();
@@ -48,6 +40,7 @@ socket.on('roomStatus', (data) => {
    console.log(data);
    if (data.status == true) {
       lobbyId = data.roomId;
+      userId = data.host;
       document.getElementById("lobbyId").innerText = `Your Game Lobby ID: ${lobbyId}`;
    }
    else
@@ -63,6 +56,7 @@ socket.on('gameReady', (data) => {
    startGameBtn.disabled = false;
    startGameBtn.classList.remove("btn-danger");
    startGameBtn.classList.add("btn-primary");
+   opponentId = (data.host == userId) ? data.guest : data.host;
 });
 
 // Receive flag to start game.
@@ -81,5 +75,14 @@ socket.on('startGame', (data) => {
 });
 
 socket.on('receiveBoard', (data) => {
+   alert("Your opponent has finished placing their ships!");
    enableBombingButton(isHost);
 });
+
+socket.on('startBombing', (data) => {
+   startBombingPhase();
+});
+
+socket.on('join', (data) => {
+   userId = data.id;
+})

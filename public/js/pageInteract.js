@@ -24,8 +24,6 @@ function showBombingButton() {
    bombingStage.style.display = "block";
    if (isHost) 
       bombingBtn.style.display = "block";
-
-
 }
 
 function enableBombingButton(isHost) {
