@@ -10,4 +10,15 @@ const generateId = () => {
    return result;
 }
 
-module.exports = { generateId };
+const printBoard = (board) => {
+   var string = "";
+   for (let i = 0; i < 100; i++) {
+      if (i % 9 == 0)
+         string += " \n";
+         console.log(string);
+      string += board[i] + "  ";
+
+   }
+}
+
+module.exports = { generateId, printBoard };

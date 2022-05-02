@@ -70,8 +70,11 @@ for (let i = 0; i < 100; i++) {
 function makeGuess(ev) {
    var guessIndex = ev.target.dataset.index;
 
-   // if game hasn't ended and user's turn.
-   if (usersTurn && (userPoints != 17 || opponentPoints != 17)) {
+   if (userPoints == 16) {
+      socket.emit('winner', {userId: userId, roomId: lobbyId});
+      alert("You won!");
+   } 
+   else if (usersTurn) {
       if (gameMode == "multiplayer")
          makeMultiplayerGuess(guessIndex);
       else
@@ -79,14 +82,16 @@ function makeGuess(ev) {
 
       console.log(`user's turn: ${usersTurn}`);
       console.log(`game status: ${JSON.stringify(all_ship_statuses)}`);
-   } else {
-      console.log("not your turn.");
+   } 
+   else {
+      alert("not your turn! >:(");
    }
 }
 
 function makeSinglePlayerGuess(guessIndex) {
    var guessTileValue = opponentBoard[guessIndex];
 
+   // if a hit
    if (guessTileValue > 0) {
       // decrease boat value for opponent
       all_ship_statuses['opponent'][Object.keys(boats)[guessTileValue - 1]]--;
@@ -97,12 +102,59 @@ function makeSinglePlayerGuess(guessIndex) {
       // maintain turn until miss
       usersTurn = true;
    }
+
+   // else if user already guessed in that spot
    else if (opponentBoard[guessIndex].innerText < 0) {
       usersTurn = true;
    }
+
+   // else if empty
    else {
-      // end turn if tile is empty (innerText == 0)
+      opponentBoxes[guessIndex].innerText = "-2";
       usersTurn = false;
       botGuess();
    }
 }
+
+function makeMultiplayerGuess(guessIndex) {
+   socket.emit('guess', {
+      guessIndex: guessIndex,
+      roomId: lobbyId,
+      userId: userId
+   });
+}
+
+socket.on('opponentGuessedRight', (data) => {
+   console.log(data);
+   // if users got it right, mark opponent board.
+   if (usersTurn) {
+      opponentBoxes[data.correctGuessIndex].innerText = "-1";
+      userPoints++;
+      usersTurn = true;
+   }
+   // if opponent got it right, mark user board
+   else {
+      boxes[data.correctGuessIndex].innerText = "-1";
+      opponentPoints++;
+      usersTurn = false;
+   }
+
+});
+
+socket.on('opponentGuessedWrong', (data) => {
+   console.log(data);
+
+   if (usersTurn) {
+      opponentBoxes[data.wrongGuessIndex].innerText = "0";
+      usersTurn = false;
+   }
+
+   else {
+      boxes[data.wrongGuessIndex].innerText = "0";
+      usersTurn = true;
+   }
+});
+
+socket.on('winner', (data) => {
+   alert(data);
+});

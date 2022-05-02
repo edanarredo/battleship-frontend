@@ -2,7 +2,7 @@ const path = require('path');
 const http = require('http');
 const express = require('express');
 const socket = require('socket.io');
-const lobby = require('./lib/utility')
+const lobby = require('./lib/utility');
 
 // This will change when running on non-local-server/heroku/etc.
 const publicPath = path.join(__dirname, '/../public');
@@ -17,6 +17,8 @@ const clientRooms = {};
 // Open socket.io connection
 io.on('connection', (socket) => {
    console.log("A user connected.\nuserId: " + socket.id);
+   
+   socket.emit('join', {id: socket.id});
 
    // Sender disconnects
    socket.on('disconnect', () => {
@@ -31,49 +33,65 @@ io.on('connection', (socket) => {
       clientRooms[roomId][socket.id] = {
          points: 0
       };
-      socket.emit('roomStatus', { status: true, roomId: roomId });
+      socket.emit('roomStatus', { status: true, roomId: roomId, host: socket.id });
    });
 
    // Sender joins lobby
    socket.on('joinGame', (data) => {
       let lobbyId = data.code
+      let players = Object.keys(clientRooms[lobbyId]);
       if (clientRooms[lobbyId]) {
          clientRooms[lobbyId][socket.id] = {
             points: 0
          };
          socket.join(lobbyId);
-         socket.to(lobbyId).emit('gameReady', { status: true, roomId: lobbyId });
+         socket.to(lobbyId).emit('gameReady', { status: true, roomId: lobbyId, host: players[0], guest: socket.id});
       }
       else
          socket.broadcast.to(socket.id).emit('roomStatus', { status: false, roomId: null });
    });
 
-   // Emit square position
-   socket.on('guessSpace', (data) => {
-      socket.broadcast.emit("movedSquare", data);
-   });
-
    // Emit guess position
    socket.on('guess', (data) => {
-      socket.broadcast.emit("guess", data);
+      var shipStatuses = data.allShipStatuses;
+      var guessIndex = data.guessIndex;
+      var roomId = data.roomId;
+      var user = Object.keys(clientRooms[roomId]).filter(item => item != data.userId);
+      var board = clientRooms[roomId][user]['board'];
+      
+      // check if guessed space in board is correct
+      if (board[guessIndex] > 0) {
+         board[guessIndex] = -1;
+         clientRooms[roomId][user].points++;
+         io.in(roomId).emit('opponentGuessedRight', {correctGuessIndex: guessIndex});
+      }
+      else if (board[guessIndex] == 0) {
+         io.in(roomId).emit('opponentGuessedWrong', {wrongGuessIndex: guessIndex});
+      }
+      console.log(`${socket.id} guessed the same spot twice.`);
+
+      console.log(JSON.stringify(clientRooms));
    });
 
    // Emit game start for all clients in room.
    socket.on('startGame', (data) => {
       io.in(data.lobbyId).emit('startGame', { roomId: data.lobbyId });
-      console.log(clientRooms);
    });
 
    // Emit game start for all clients in room.
    socket.on('startBombing', (data) => {
       io.in(data.lobbyId).emit('startBombing', { roomId: data.lobbyId });
-      console.log(clientRooms);
    });
 
+   // Save board from user emit
    socket.on('postBoard', (data) => {
-      console.log(data);
-      clientRooms[data.lobbyId][socket.id]['board'] = data.board;
-      socket.broadcast.emit('receiveBoard', { fromUser: socket.id, opponentBoard: clientRooms[data.lobbyId][socket.id]['board'] })
+      clientRooms[data.roomId][socket.id]['board'] = data.board;
+      socket.broadcast.emit('receiveBoard', { fromUser: socket.id })
+   });
+
+   socket.on('winner', (data) => {
+      var user = Object.keys(clientRooms[data.roomId]).filter(item => item != data.userId);
+      io.in(data.roomId).emit('winner', 'Game ended. Looks like your opponent won!');
    });
 });
 
