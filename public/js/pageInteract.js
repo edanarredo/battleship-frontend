@@ -19,3 +19,11 @@ function becomeHost() {
 function surrenderHost() {
    isHost = false;
 }
+
+function showBombingButton() {
+   commenceBombingStage.style.display = "block";
+}
+
+function enableBombingButton() {
+   commenceBombingStage.disabled = false;
+}
