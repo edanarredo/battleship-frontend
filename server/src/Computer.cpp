@@ -225,34 +225,14 @@ int Computer::tryAdjacent(battleship target, int &x, int &y) { //this took me 8 
         }
         else{ //if shot missed
             shots.pop_back(); //remove miss from queue
-
             if (shots.size() > 1){//If on shot streak (at least two shot's by each other) and it ran into water.
-                if (reverseCheck > 1){
-                    if (r > 2){
-                        x++;
-                    }
-                    else if (r > 4){
-                        x--;
-                    }
-                    else if (r > 6){
-                        y++;
-                    }
-                    else{
-                        y--;
-                    }
-                }
-                else {
-                    reverse(shots.begin(), shots.end());//Then ai will turn around and get the rest of ship
-                    reverseCheck++;
-                    //However in the case the row of hits is on two different ships, it could get turned around more
-                    //than once. To prevent it from being stuck in a loop, if it reverses at least twice it takes shot
-                    //on random adjacent spots until it finds a new row. Once one ship is sunk the ai will no longer
-                    //reverse.
-                }
+                reverse(shots.begin(), shots.end());//Then ai will turn around and get the rest of ship
+                reverseCheck++;
+                //However in the case the row of hits is on two different ships, it could get turned around more
+                //than once. To prevent it from being stuck in a loop, if it reverses at least twice it takes shot
+                //on random adjacent spots until it finds a new row.
             }
-            else{
-                x = 11; //tries again if there are still hit ships that are not sunk
-            }
+            x = 11; //tries again if there are still hit ships that are not sunk
             return 0;
         }
     }
