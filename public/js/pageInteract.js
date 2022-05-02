@@ -21,9 +21,14 @@ function surrenderHost() {
 }
 
 function showBombingButton() {
-   commenceBombingStage.style.display = "block";
+   bombingStage.style.display = "block";
+   if (isHost) 
+      bombingBtn.style.display = "block";
+
+
 }
 
-function enableBombingButton() {
-   commenceBombingStage.disabled = false;
+function enableBombingButton(isHost) {
+   if (isHost) 
+      bombingBtn.disabled = false;
 }

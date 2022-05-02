@@ -31,7 +31,7 @@ io.on('connection', (socket) => {
       clientRooms[roomId][socket.id] = {
          points: 0
       };
-      socket.emit('roomStatus', {status: true, roomId: roomId});
+      socket.emit('roomStatus', { status: true, roomId: roomId });
    });
 
    // Sender joins lobby
@@ -42,10 +42,10 @@ io.on('connection', (socket) => {
             points: 0
          };
          socket.join(lobbyId);
-         socket.to(lobbyId).emit('gameReady', {status: true, roomId: lobbyId});
+         socket.to(lobbyId).emit('gameReady', { status: true, roomId: lobbyId });
       }
-      else 
-         socket.broadcast.to(socket.id).emit('roomStatus', {status: false, roomId: null});
+      else
+         socket.broadcast.to(socket.id).emit('roomStatus', { status: false, roomId: null });
    });
 
    // Emit square position
@@ -60,14 +60,20 @@ io.on('connection', (socket) => {
 
    // Emit game start for all clients in room.
    socket.on('startGame', (data) => {
-      io.in(data.lobbyId).emit('startGame', {roomId: data.lobbyId});
+      io.in(data.lobbyId).emit('startGame', { roomId: data.lobbyId });
+      console.log(clientRooms);
+   });
+
+   // Emit game start for all clients in room.
+   socket.on('startBombing', (data) => {
+      io.in(data.lobbyId).emit('startBombing', { roomId: data.lobbyId });
       console.log(clientRooms);
    });
 
    socket.on('postBoard', (data) => {
       console.log(data);
       clientRooms[data.lobbyId][socket.id]['board'] = data.board;
-      socket.broadcast.emit('receiveBoard', {fromUser: socket.id, opponentBoard: clientRooms[data.lobbyId][socket.id]['board'] })
+      socket.broadcast.emit('receiveBoard', { fromUser: socket.id, opponentBoard: clientRooms[data.lobbyId][socket.id]['board'] })
    });
 });
 

@@ -3,6 +3,8 @@ var piece_direction = 'east';
 var drag_ship_queue = 1;
 var boats = { "B": 1, "C": 2, "D": 3, "P": 4, "S": 5 };
 var boat_sizes = [4, 5, 3, 2, 3];
+var opponentPoints = 0;
+var userPoints = 0;
 
 function setupBotOpponentBoard() {
    let x = 0, y = 0, opponentPlaceIndex = 0, boat_type = 0;

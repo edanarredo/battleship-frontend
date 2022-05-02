@@ -433,9 +433,9 @@
                   style="display:none;"></div>
                <div class="container-fluid submarine" draggable="true" ondragstart="drag(event)" id="drag5"
                   style="display:none;"></div>
-               <div class="container-fluid beginBombingButton" id="commenceBombingStage" style="display:none;">
+               <div class="container-fluid" id="bombingStage" style="display:none;">
                   <h1 class="menuText">Waiting for other opponent...</h1>
-                  <button type="button" class="btn btn-light">Commence Battle!</button>
+                  <button type="button" class="btn btn-light" id="bombingButton" style="display:none;">Commence Battle!</button>
                </div>
             </div>
          </div>
@@ -445,6 +445,9 @@
                <button type="button" id="rotatePieceButton" class="btn btn-outline-dark">Rotate</button>
             </div>
          </div>
+      </div>
+      <div class="row align-items-md-stretch">
+         <div class="justify-content-center h-100 p-4" id="scoreBoard"></div>
       </div>
    </div>
 

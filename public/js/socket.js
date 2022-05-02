@@ -1,12 +1,14 @@
 // Create Game Button
 createGameBtn.addEventListener('click', () => {
    socket.emit('createGame', "create");
+   isHost = true;
 });
 
 // Join Game Button
 joinGameBtn.addEventListener('click', () => {
    const code = lobbyIdInput.value;
    lobbyId = code;
+   isHost = false;
    socket.emit('joinGame', { code: code });
 });
 
@@ -16,18 +18,9 @@ startGameBtn.addEventListener('click', () => {
    gameMode = 'multiplayer';
 });
 
-// // Square move event
-// board.addEventListener('drop', () => {
-//    let new_coord = getLastPlacedPieceCoordinates();
-
-//    if (gameMode == 'multiplayer') {
-//       socket.emit("guessSpace", {
-//          piece_position: new_coord,
-//          piece_type: "warship",
-//          piece_direction: "north"
-//       });
-//    }
-// });
+bombingBtn.addEventListener('click', () => {
+   socket.emit('startBombing', { lobbyId: lobbyId });
+});
 
 // Guess Event
 function makeGuess(ev) {
@@ -51,7 +44,7 @@ function uploadBoard() {
          lobbyId: lobbyId
       });
    }
-   showStartButton();
+   showBombingButton();
 }
 
 // Receive room status after menu interaction
@@ -92,6 +85,5 @@ socket.on('startGame', (data) => {
 });
 
 socket.on('receiveBoard', (data) => {
-   enableBombingButton();
-   startBombingPhase();
-})
+   enableBombingButton(isHost);
+});
