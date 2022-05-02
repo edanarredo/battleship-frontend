@@ -17,6 +17,7 @@ var boxes = document.querySelectorAll(".box");
 var shipBay = document.getElementById("shipBay");
 var opponentBoard = Array.from(Array(100).keys());
 var userBoard = Array.from(Array(100).keys());
+var botGuesses = Array.from(Array(100).keys());
 var opponentBoxes = document.querySelectorAll(".boxOpponent");
 var gameStatus = document.getElementById("gameStatus");
 var lobbyId, gameMode;
@@ -38,22 +39,11 @@ function initBotGame() {
 }
 
 function startBombingPhase() {
-   opponent = (gameMode == "singleplayer") ? "botOpponent" : "playerOpponent";
-
-   // Prevent user from interacting with their board
-   for (const box of boxes) {
-      box.removeEventListener("dragenter", dragEnter);
-      box.removeEventListener("dragleave", dragLeave);
-      box.removeEventListener("ondrop", drop);
-      box.removeEventListener("ondragover", allowDrop);
-   }
-
-
    if (usersTurn)
       gameStatus.innerText = "Your turn!";
-   else  
+   else {
       gameStatus.innerText = "Opponent's turn.";
-
+   }
    // // Run Bombing Phase
    // while (opponentPoints != 17 || userPoints != 17) {
    //    guessSpace("user");
@@ -73,5 +63,3 @@ function initBoards() {
    opponentBoard.forEach(index => { opponentBoard[index] = 0 });
    userBoard.forEach(index => { userBoard[index] = 0 });
 }
-
-
