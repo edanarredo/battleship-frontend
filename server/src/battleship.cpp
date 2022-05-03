@@ -24,7 +24,7 @@ int battleship::checkBoats(battleship target, int x, int y, int size, char direc
     int check;
     //returning 0 means the check failed
     if (direction == 'n'){
-        if (y + size > 9){ //checks if x/y is in range since out of range array's act retarted
+        if (y + size > 9){ //checks if x/y is in range
             return 0;
         }
         for (int i = 0; i < size;i++) {
@@ -79,7 +79,7 @@ void battleship::placeBoats(battleship &target, int x, int y, int size, int type
     if (direction == 'e'){
         for (int i = 0; i < size;i++) {
             target.board[x - i][y] = type;
-            //remember the directions are flipped. So east means it's placing the boat spaces to the left of orgin
+            //remember the directions are flipped. So east means it's placing the boat spaces to the left of origin
             //If it pisses you off too much I can change it
         }
     }

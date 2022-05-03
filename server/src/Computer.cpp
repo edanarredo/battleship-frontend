@@ -24,7 +24,7 @@ int Computer::cPlaceBoats(battleship &target, int size, int type) {
         else{
             d = 'w';
         }
-        switch (size){//coordinate orgin is generated and rand range is based on boat size
+        switch (size){//coordinate origin is generated and rand range is based on boat size
             case 5:
                 if (d == 'n') {
                     x = rand() % 5;
