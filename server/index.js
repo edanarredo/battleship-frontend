@@ -53,24 +53,18 @@ io.on('connection', (socket) => {
 
    // Emit guess position
    socket.on('guess', (data) => {
-      var shipStatuses = data.allShipStatuses;
       var guessIndex = data.guessIndex;
       var roomId = data.roomId;
       var user = Object.keys(clientRooms[roomId]).filter(item => item != data.userId);
       var board = clientRooms[roomId][user]['board'];
-      
-      // check if guessed space in board is correct
-      if (board[guessIndex] > 0) {
-         board[guessIndex] = -1;
-         clientRooms[roomId][user].points++;
-         io.in(roomId).emit('opponentGuessedRight', {correctGuessIndex: guessIndex});
-      }
-      else if (board[guessIndex] == 0) {
-         io.in(roomId).emit('opponentGuessedWrong', {wrongGuessIndex: guessIndex});
-      }
-      console.log(`${socket.id} guessed the same spot twice.`);
+      console.log(board);
 
-      console.log(JSON.stringify(clientRooms));
+      if (board[guessIndex] > 0) {
+         io.in(roomId).emit('opponentGuessedRight', {correctGuessIndex: guessIndex, boatType: board[guessIndex]});
+         board[guessIndex] = -1;
+      }
+      else if (board[guessIndex] == 0) 
+         io.in(roomId).emit('opponentGuessedWrong', {wrongGuessIndex: guessIndex, boatType: board[guessIndex]});
    });
 
    // Emit game start for all clients in room.
@@ -86,12 +80,7 @@ io.on('connection', (socket) => {
    // Save board from user emit
    socket.on('postBoard', (data) => {
       clientRooms[data.roomId][socket.id]['board'] = data.board;
-      socket.broadcast.emit('receiveBoard', { fromUser: socket.id })
-   });
-
-   socket.on('winner', (data) => {
-      var user = Object.keys(clientRooms[data.roomId]).filter(item => item != data.userId);
-      io.in(data.roomId).emit('winner', 'Game ended. Looks like your opponent won!');
+      socket.broadcast.emit('boardCompleteAlert', { fromUser: socket.id })
    });
 });
 

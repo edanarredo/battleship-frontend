@@ -74,7 +74,7 @@ socket.on('startGame', (data) => {
    initPlayerGame();
 });
 
-socket.on('receiveBoard', (data) => {
+socket.on('boardCompleteAlert', (data) => {
    alert("Your opponent has finished placing their ships!");
    enableBombingButton(isHost);
 });
@@ -85,4 +85,4 @@ socket.on('startBombing', (data) => {
 
 socket.on('join', (data) => {
    userId = data.id;
-})
+});
