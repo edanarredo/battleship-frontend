@@ -19,9 +19,9 @@ var opponentBoard = Array.from(Array(100).keys());
 var userBoard = Array.from(Array(100).keys());
 var opponentBoxes = document.querySelectorAll(".boxOpponent");
 var gameStatus = document.getElementById("gameStatus");
-var lobbyId, gameMode;
+var lobbyId, gameMode, userId, opponentId;
 var isHost = true;
-var usersTurn = true;
+var usersTurn = false;
 
 function initPlayerGame() {
    board.style.display = "block";
@@ -43,17 +43,6 @@ function startBombingPhase() {
    else {
       gameStatus.innerText = "Opponent's turn.";
    }
-   // // Run Bombing Phase
-   // while (opponentPoints != 17 || userPoints != 17) {
-   //    guessSpace("user");
-   //    guessSpace(opponent);
-   // }
-
-   // // Check who won
-   // if (userPoints == 17)
-   //    showWinnerScreen("user");
-   // else  
-   //    showWinnerScreen(opponent);
 
    return true;
 }
