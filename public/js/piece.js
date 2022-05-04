@@ -68,6 +68,7 @@ function advancePlacePiecePhase(boat_number) {
       document.querySelector(".submarine").style.display = "block";
       break;
     default:
+      document.getElementById("userStatus").style.backgroundColor = "green";
       if (gameMode == 'multiplayer') 
         uploadBoard();
       else

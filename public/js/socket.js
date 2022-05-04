@@ -75,7 +75,7 @@ socket.on('startGame', (data) => {
 });
 
 socket.on('boardCompleteAlert', (data) => {
-   alert("Your opponent has finished placing their ships!");
+   document.getElementById("opponentStatus").style.backgroundColor = "green";
    enableBombingButton(isHost);
 });
 
