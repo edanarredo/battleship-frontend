@@ -102,6 +102,7 @@ function makeSinglePlayerGuess(guessIndex) {
    }
    else {
       // end turn if tile is empty (innerText == 0)
+      opponentBoxes[guessIndex].innerText = "0";
       usersTurn = false;
       botGuess();
    }
