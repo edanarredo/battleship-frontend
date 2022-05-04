@@ -71,12 +71,8 @@ function makeGuess(ev) {
    var guessIndex = ev.target.dataset.index;
    var checkForWinner = checkWinner();
 
-
-   if (checkForWinner.gameOver && checkForWinner.winner == "draw")
-      gameStatus.innerText = "Draw!";
-   else if (checkForWinner.gameOver)
-      gameStatus.innerText = `${checkForWinner.winner == "opponent" ? "Your Opponent" : "You"} won!`;
-
+   if (checkForWinner.gameOver) 
+      return;
    else if (usersTurn && !checkForWinner.gameOver) {
       if (gameMode == "multiplayer")
          makeMultiplayerGuess(guessIndex);
@@ -112,30 +108,31 @@ function makeMultiplayerGuess(guessIndex) {
    socket.emit('guess', {
       guessIndex: guessIndex,
       roomId: lobbyId,
-      userId: userId
+      userId: userId,
+      boatHealth: all_ship_statuses
    });
 }
 
 socket.on('opponentGuessedRight', (data) => {
-   console.log(data);
    // User hits. Still user's turn.
    if (usersTurn) {
       opponentBoxes[data.correctGuessIndex].innerHTML = `<div style="border: 4px solid RED !important; height: 100%; width: 100%;">HIT</div>`;
+      adjustBoatHealth(data.boatType, "opponent");
       userPoints++;
       usersTurn = true;
    }
    // Opponent hits. Still opponent's turn.
    else {
       boxes[data.correctGuessIndex].innerHTML = `<div style="border: 4px solid RED !important; height: 100%; width: 100%;">HIT</div>`;
+      adjustBoatHealth(data.boatType, "user");
       opponentPoints++;
       usersTurn = false;
    }
+   checkWinner();
 
 });
 
 socket.on('opponentGuessedWrong', (data) => {
-   console.log(data);
-
    // User misses shot. Pass turn
    if (usersTurn) {
       opponentBoxes[data.wrongGuessIndex].innerHTML =  `<div style="border: 4px solid YELLOW !important; height: 100%; width: 100%;">MISS</div>`;
@@ -151,10 +148,6 @@ socket.on('opponentGuessedWrong', (data) => {
    }
 });
 
-socket.on('winner', (data) => {
-   console.log(data);
-});
-
 function checkWinner() {
    let userFleetSize = Object.values(all_ship_statuses.user);
    let opponentFleetSize = Object.values(all_ship_statuses.opponent);
@@ -162,10 +155,17 @@ function checkWinner() {
    var userIsDead = userFleetSize.reduce((a, b) => a + b) == 0;
    var opponentIsDead = opponentFleetSize.reduce((a, b) => a + b) == 0;
 
+   var result;
+
    if (userIsDead)
-      return { winner: "opponent", gameOver: true };
+      result = { winner: "Opponent", gameOver: true };
    else if (opponentIsDead)
-      return { winner: "user", gameOver: true };
-   else
-      return { winner: "none", gameOver: false };
+      result = { winner: "User", gameOver: true };
+   else {
+      result = { winner: "None", gameOver: false };
+      return result;
+   }
+   
+   gameStatus.innerText = `${result.winner == "Opponent" ? "Your Opponent" : "You"} won!`;
+   return result;
 }
