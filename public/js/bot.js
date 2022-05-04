@@ -1,5 +1,6 @@
 var reverseCheck;
 var botGuesses = Array.from(Array(100).keys());
+var botAttemptedIndexes = [];
 var attempts = 0;
 
 // B, C, D, P, S
@@ -27,16 +28,16 @@ async function botGuess() {
    gameStatus.innerText = "Opponent's turn.";
    while (!usersTurn) {
 
-      await new Promise(r => setTimeout(r, 1000));
-
-      // Draw a random number from botGuesses[]
-      var index = Math.floor(Math.random() * (botGuesses.length + 1));
-      var targetValue = userBoard[index];
-      botGuesses.splice(botGuesses.indexOf(index), 1);
+      // Pick random tile that has not been guessed yet.
+      var unpickedTilesForGuess = botGuesses.filter(item => !botAttemptedIndexes.includes(item))
+      var randomIndex = Math.floor(Math.random() * (unpickedTilesForGuess.length + 1));
+      var unpickedTileIndex = unpickedTilesForGuess[randomIndex];
+      var targetTileValue = userBoard[unpickedTileIndex];
+      botAttemptedIndexes.push(unpickedTileIndex);
 
       // Check tile value and adjust game state if needed.
-      if (targetValue > 0) {
-         switch (targetValue) {
+      if (targetTileValue > 0) {
+         switch (targetTileValue) {
             case 1:
                all_ship_statuses.user['B']--;
                opponentPoints++;
@@ -60,20 +61,20 @@ async function botGuess() {
             default:
                break;
          }
-
          // Leave marker indicating hit.
-         boxes[index].innerHTML = `<div style="border: 4px solid RED !important; height: 100%; width: 100%;">HIT</div>`;
-         userBoard[index] = 0;
+         boxes[unpickedTileIndex].innerHTML = `<div style="border: 4px solid RED !important; height: 100%; width: 100%;">HIT</div>`;
+         userBoard[unpickedTileIndex] = -1;
       }
 
       // If a miss, leave marker indicating miss.
-      else if (targetValue == 0) {
-         boxes[index].innerHTML = `<div style="border: 4px solid YELLOW !important; height: 100%; width: 100%;">MISS</div>`;
+      else if (targetTileValue == 0) {
+         boxes[unpickedTileIndex].innerHTML = `<div style="border: 4px solid YELLOW !important; height: 100%; width: 100%;">MISS</div>`;
          usersTurn = true;
          gameStatus.innerText = "Your turn!";
-      } 
+      }
 
-
+      attempts++;
+      await new Promise(r => setTimeout(r, 1000));
    }
 }
 
