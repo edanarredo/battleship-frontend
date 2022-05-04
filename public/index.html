@@ -18,6 +18,7 @@
 </head>
 
 <body>
+
    <!-- Main Menu  -->
    <div id="menu" class="menu align-items-center justify-content-center h-100">
 
@@ -52,7 +53,7 @@
                   </ul>
                   <br>
                   <h6 id="lobbyId"></h6>
-                  <button onclick="copyToClipboard()">Copy to Clipboard</button>
+                  <button class="btn btn-primary" onclick="copyToClipboard()">Copy to Clipboard</button>
                </div>
                <div class="modal-footer">
                   <button id="close" type="button" class="btn btn-secondary" data-bs-dismiss="modal"
@@ -101,7 +102,7 @@
          <!-- Battleship Board -->
          <div class="row boards">
             <div class="col-md-6" id="self_board">
-               <h4>You</h4>
+               <h4>You <span id="userStatus" class="dot"></span></h4>
                <div>
                   <div class="wrapper">
                      <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
@@ -236,7 +237,7 @@
             </div>
 
             <div class="col-md-6" id="opponentBoard">
-               <h4>Opponent</h4>
+               <h4>Opponent <span id="opponentStatus" class="dot"></span></h4>
                <div>
                   <div class="wrapper">
                      <div class="boxOpponent opponentDark" onclick="makeGuess(event)" ondragover="allowDrop(event)">
