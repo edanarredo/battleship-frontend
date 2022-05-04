@@ -34,6 +34,7 @@ function initBotGame() {
    board.style.display = "block";
    menuScreen.style.display = "none";
    gameMode = 'singleplayer';
+   usersTurn = true;
    initBoards();
 }
 
