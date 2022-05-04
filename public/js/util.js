@@ -69,20 +69,23 @@ for (let i = 0; i < 100; i++) {
 
 function makeGuess(ev) {
    var guessIndex = ev.target.dataset.index;
+   var checkForWinner = checkWinner();
 
 
-   if (usersTurn && (userPoints != 17 || opponentPoints != 17)) {
+   if (checkForWinner.gameOver && checkForWinner.winner == "draw")
+      gameStatus.innerText = "Draw!";
+   else if (checkForWinner.gameOver)
+      gameStatus.innerText = `${checkForWinner.winner == "opponent" ? "Your Opponent" : "You"} won!`;
+
+   else if (usersTurn && !checkForWinner.gameOver) {
       if (gameMode == "multiplayer")
          makeMultiplayerGuess(guessIndex);
       else
          makeSinglePlayerGuess(guessIndex);
-     
-   } else if (userPoints == 17 || opponentPoints == 17) {
-      gameStatus.innerText = (userPoints == 17 ? "You win!" : "Your opponent won.");
    }
-   else {
+   else
       alert("Please wait for your opponent to finish...");
-   }
+
 }
 
 function makeSinglePlayerGuess(guessIndex) {
@@ -115,15 +118,15 @@ function makeMultiplayerGuess(guessIndex) {
 
 socket.on('opponentGuessedRight', (data) => {
    console.log(data);
-   // if users got it right, mark opponent board.
+   // User hits. Still user's turn.
    if (usersTurn) {
-      opponentBoxes[data.correctGuessIndex].innerText = "-1";
+      opponentBoxes[data.correctGuessIndex].innerHTML = `<div style="border: 4px solid RED !important; height: 100%; width: 100%;">HIT</div>`;
       userPoints++;
       usersTurn = true;
    }
-   // if opponent got it right, mark user board
+   // Opponent hits. Still opponent's turn.
    else {
-      boxes[data.correctGuessIndex].innerText = "-1";
+      boxes[data.correctGuessIndex].innerHTML = `<div style="border: 4px solid RED !important; height: 100%; width: 100%;">HIT</div>`;
       opponentPoints++;
       usersTurn = false;
    }
@@ -133,17 +136,36 @@ socket.on('opponentGuessedRight', (data) => {
 socket.on('opponentGuessedWrong', (data) => {
    console.log(data);
 
+   // User misses shot. Pass turn
    if (usersTurn) {
-      opponentBoxes[data.wrongGuessIndex].innerText = "0";
+      opponentBoxes[data.wrongGuessIndex].innerHTML =  `<div style="border: 4px solid YELLOW !important; height: 100%; width: 100%;">MISS</div>`;
       usersTurn = false;
+      gameStatus.innerText = "Opponent's turn.";
    }
 
+   // Opponent misses shot. Give turn.
    else {
-      boxes[data.wrongGuessIndex].innerText = "0";
+      boxes[data.wrongGuessIndex].innerHTML =  `<div style="border: 4px solid YELLOW !important; height: 100%; width: 100%;">MISS</div>`;
       usersTurn = true;
+      gameStatus.innerText = "Your turn!";
    }
 });
 
 socket.on('winner', (data) => {
-   alert(data);
+   console.log(data);
 });
+
+function checkWinner() {
+   let userFleetSize = Object.values(all_ship_statuses.user);
+   let opponentFleetSize = Object.values(all_ship_statuses.opponent);
+
+   var userIsDead = userFleetSize.reduce((a, b) => a + b) == 0;
+   var opponentIsDead = opponentFleetSize.reduce((a, b) => a + b) == 0;
+
+   if (userIsDead)
+      return { winner: "opponent", gameOver: true };
+   else if (opponentIsDead)
+      return { winner: "user", gameOver: true };
+   else
+      return { winner: "none", gameOver: false };
+}
