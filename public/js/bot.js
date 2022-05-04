@@ -24,7 +24,6 @@ var all_ship_statuses = {
 
 
 async function botGuess() {
-
    gameStatus.innerText = "Opponent's turn.";
    while (!usersTurn) {
 
@@ -37,30 +36,7 @@ async function botGuess() {
 
       // Check tile value and adjust game state if needed.
       if (targetTileValue > 0) {
-         switch (targetTileValue) {
-            case 1:
-               all_ship_statuses.user['B']--;
-               opponentPoints++;
-               break;
-            case 2:
-               all_ship_statuses.user['C']--;
-               opponentPoints++;
-               break;
-            case 3:
-               all_ship_statuses.user['D']--;
-               opponentPoints++;
-               break;
-            case 4:
-               all_ship_statuses.user['P']--;
-               opponentPoints++;
-               break;
-            case 5:
-               all_ship_statuses.user['S']--;
-               opponentPoints++;
-               break;
-            default:
-               break;
-         }
+         adjustBoatHealth(targetTileValue);
          // Leave marker indicating hit.
          boxes[unpickedTileIndex].innerHTML = `<div style="border: 4px solid RED !important; height: 100%; width: 100%;">HIT</div>`;
          userBoard[unpickedTileIndex] = -1;
@@ -83,5 +59,32 @@ function tryAdjacent(index) {
       var random = Math.floor(Math.random() * 10);
    }
    return true;
+}
+
+function adjustBoatHealth(tileBoatValue, player) {
+   switch (tileBoatValue) {
+      case 1:
+         all_ship_statuses[player]['B']--;
+         opponentPoints++;
+         break;
+      case 2:
+         all_ship_statuses[player]['C']--;
+         opponentPoints++;
+         break;
+      case 3:
+         all_ship_statuses[player]['D']--;
+         opponentPoints++;
+         break;
+      case 4:
+         all_ship_statuses[player]['P']--;
+         opponentPoints++;
+         break;
+      case 5:
+         all_ship_statuses[player]['S']--;
+         opponentPoints++;
+         break;
+      default:
+         break;
+   }
 }
 
