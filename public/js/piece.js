@@ -87,7 +87,9 @@ function insertRemainingBoatPieces(index, piece_type, piece_direction, board, pi
     piece_index_board_spot = (piece_direction == "south") ? (10 * piece_index) + index : piece_index + index;
     if (board == "SELF") {
       let piece_img_path = getPieceImage(piece_index, piece_type, piece_direction);
-      boxes[piece_index_board_spot].innerHTML = `<div style="background: url(${piece_img_path}); background-repeat: no-repeat;" >${piece_type}</div>`;
+      console.log(piece_img_path);
+      // boxes[piece_index_board_spot].innerHTML = `<div style="background: url(${piece_img_path}); background-repeat: no-repeat;" >${piece_type}</div>`;
+      boxes[piece_index_board_spot].innerHTML = `<div style="border: 4px solid white !important; height: 100%; width: 100%;" background-repeat: no-repeat;" >${piece_type}</div>`;
       userBoard[piece_index_board_spot] = piece_type;
     }
     else if (board == "OPPONENT")
