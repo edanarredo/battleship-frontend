@@ -70,17 +70,17 @@ for (let i = 0; i < 100; i++) {
 function makeGuess(ev) {
    var guessIndex = ev.target.dataset.index;
 
-   // if game hasn't ended and user's turn.
    if (usersTurn && (userPoints != 17 || opponentPoints != 17)) {
       if (gameMode == "multiplayer")
          makeMultiplayerGuess(guessIndex);
       else
          makeSinglePlayerGuess(guessIndex);
 
-      console.log(`user's turn: ${usersTurn}`);
-      console.log(`game status: ${JSON.stringify(all_ship_statuses)}`);
-   } else {
-      console.log("not your turn.");
+   } else if (userPoints == 17 || opponentPoints == 17) {
+      gameStatus.innerText = (userPoints == 17 ? "You win!" : "Your opponent won.");
+   }
+   else {
+      alert("Please wait for your opponent to finish...");
    }
 }
 
@@ -93,7 +93,7 @@ function makeSinglePlayerGuess(guessIndex) {
       // increase score
       userPoints++;
       // set tile to new value indicating hit
-      opponentBoxes[guessIndex].innerText = "-1";
+      opponentBoxes[guessIndex].innerHTML = `<div style="border: 4px solid RED !important; height: 100%; width: 100%;">HIT</div>`;
       // maintain turn until miss
       usersTurn = true;
    }
@@ -102,7 +102,7 @@ function makeSinglePlayerGuess(guessIndex) {
    }
    else {
       // end turn if tile is empty (innerText == 0)
-      opponentBoxes[guessIndex].innerText = "0";
+      opponentBoxes[guessIndex].innerHTML = `<div style="border: 4px solid YELLOW !important; height: 100%; width: 100%;">MISS</div>`;
       usersTurn = false;
       botGuess();
    }
