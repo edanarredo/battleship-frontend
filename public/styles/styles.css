@@ -25,6 +25,14 @@ h3 {
    padding-top: 1rem;
 }
 
+.dot {
+   height: 15px;
+   width: 15px;
+   background-color: rgb(239, 148, 51);
+   border-radius: 50%;
+   display: inline-block;
+ }
+
 .wrapper {
    display: flex;
    justify-content: center;
