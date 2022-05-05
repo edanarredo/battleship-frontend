@@ -46,7 +46,7 @@ function drop(ev) {
 
   let result = getLastPlacedPieceCoordinates();
   insertRemainingBoatPieces(result.index, drag_ship_queue, piece_direction, "SELF", boat_sizes[drag_ship_queue - 1]);
-  advancePlacePiecePhase(drag_ship_queue);
+  placeNextPiece(drag_ship_queue);
 }
 
 // Get coordinates of piece that was just moved.
@@ -67,7 +67,7 @@ function getLastPlacedPieceCoordinates() {
   return { xPos: x_coord, yPos: y_coord, index: big_index };
 }
 
-function advancePlacePiecePhase(boat_number) {
+function placeNextPiece(boat_number) {
   switch (boat_number) {
     case 1:
       document.querySelector(".carrier").style.display = "block";

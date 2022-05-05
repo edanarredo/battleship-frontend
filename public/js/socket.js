@@ -1,11 +1,9 @@
-// Create Game Button
 createGameBtn.addEventListener('click', () => {
    socket.emit('createGame', "create");
    isHost = true;
    usersTurn = true;
 });
 
-// Join Game Button
 joinGameBtn.addEventListener('click', () => {
    const code = lobbyIdInput.value;
    lobbyId = code;
@@ -14,7 +12,6 @@ joinGameBtn.addEventListener('click', () => {
    socket.emit('joinGame', { code: code });
 });
 
-// Start Game Button
 startGameBtn.addEventListener('click', () => {
    socket.emit('startGame', { lobbyId: lobbyId });
    gameMode = 'multiplayer';

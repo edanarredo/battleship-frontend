@@ -3,26 +3,6 @@ var botGuesses = Array.from(Array(100).keys());
 var botAttemptedIndexes = [];
 var attempts = 0;
 
-// B, C, D, P, S
-// 1, 2, 3, 4, 6
-var all_ship_statuses = {
-   user: {
-      'B': 4,
-      'C': 5,
-      'D': 3,
-      'P': 2,
-      'S': 3
-   },
-   opponent: {
-      'B': 4,
-      'C': 5,
-      'D': 3,
-      'P': 2,
-      'S': 3
-   }
-};
-
-
 async function botGuess() {
    gameStatus.innerText = "Opponent's turn.";
    while (!usersTurn) {
@@ -38,13 +18,13 @@ async function botGuess() {
       if (targetTileValue > 0) {
          adjustBoatHealth(targetTileValue, "user");
          // Leave marker indicating hit.
-         boxes[unpickedTileIndex].innerHTML = `<div style="border: 4px solid RED !important; height: 100%; width: 100%; font-size: 10px;">HIT</div>`;
+         boxes[unpickedTileIndex].innerHTML = `<div style="border: 4px solid #ff3d3d !important; height: 100%; width: 100%; font-size: 10px;">HIT</div>`;
          userBoard[unpickedTileIndex] = -1;
       }
 
       // If a miss, leave marker indicating miss.
       else if (targetTileValue == 0) {
-         boxes[unpickedTileIndex].innerHTML = `<div style="border: 4px solid YELLOW !important; height: 100%; width: 100%; font-size: 10px;">MISS</div>`;
+         boxes[unpickedTileIndex].innerHTML = `<div style="border: 4px solid #ffdc74 !important; height: 100%; width: 100%; font-size: 10px;">MISS</div>`;
          usersTurn = true;
          gameStatus.innerText = "Your turn!";
       }
@@ -60,48 +40,4 @@ function tryAdjacent(index) {
    return true;
 }
 
-function adjustBoatHealth(tileBoatValue, player) {
-   if (player == "user") 
-      opponentPoints++;
-   else
-      userPoints++;
-
-   let boardHealthListIndex = tileBoatValue - 1;
-   let targetBoatHealth;
-
-   switch (tileBoatValue) {
-      case 1:
-         all_ship_statuses[player]['B']--;
-         targetBoatHealth = all_ship_statuses[player]['B'];
-         break;
-      case 2:
-         all_ship_statuses[player]['C']--;
-         targetBoatHealth = all_ship_statuses[player]['C'];
-         break;
-      case 3:
-         all_ship_statuses[player]['D']--;
-         targetBoatHealth = all_ship_statuses[player]['D'];
-         break;
-      case 4:
-         all_ship_statuses[player]['P']--;
-         targetBoatHealth = all_ship_statuses[player]['P'];
-         break;
-      case 5:
-         all_ship_statuses[player]['S']--;
-         targetBoatHealth = all_ship_statuses[player]['S'];
-         break;
-      default:
-         break;
-   }
-
-   literalScoreText.innerText = `${userPoints}   ${opponentPoints}`;
-   let deadShip = "🟥";
-
-   if (targetBoatHealth == 0) {
-      if (player == "user")
-         userBoatHealthList[boardHealthListIndex].innerText =  deadShip.repeat(boat_sizes[tileBoatValue-1]);
-      else
-         opponentBoatHealthList[boardHealthListIndex].innerText = deadShip.repeat(boat_sizes[tileBoatValue-1]);
-   }
-}
 
