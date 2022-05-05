@@ -22,6 +22,20 @@ function dragLeave(ev) {
 
 function drop(ev) {
   ev.preventDefault();
+  var chosenIndexToPlace = parseInt(ev.target.dataset.indexPlayer);
+  var chosenIndexX = chosenIndexToPlace % 10;
+  var chosenIndexY = Math.floor(chosenIndexToPlace / 9);
+  var boatPlaceable = boatCanBePlaced(chosenIndexToPlace, chosenIndexX, chosenIndexY, boat_sizes[drag_ship_queue-1], piece_direction, "user");
+  
+  if (ev.target.innerText || !boatPlaceable) { //|| !boatPlaceable
+    alert("You can't place there!");
+    if (ev.target.classList.contains("dark"))
+      ev.target.className = "box dark";
+    else
+      ev.target.className = "box";
+    return;
+  }
+
   var data = ev.dataTransfer.getData("text");
   ev.target.appendChild(document.getElementById(data));
 
@@ -31,7 +45,7 @@ function drop(ev) {
     ev.target.className = "box";
 
   let result = getLastPlacedPieceCoordinates();
-  insertRemainingBoatPieces(result.index, drag_ship_queue, piece_direction, "SELF", boat_sizes[drag_ship_queue-1]);
+  insertRemainingBoatPieces(result.index, drag_ship_queue, piece_direction, "SELF", boat_sizes[drag_ship_queue - 1]);
   advancePlacePiecePhase(drag_ship_queue);
 }
 
@@ -75,7 +89,7 @@ function advancePlacePiecePhase(boat_number) {
       document.getElementById("userStatus").style.backgroundColor = "green";
       shipPlaceMenu.style.display = "none";
       shipLengthText.style.display = "none";
-      
+
       if (gameMode == 'multiplayer') {
         uploadBoard();
       }
