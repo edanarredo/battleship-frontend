@@ -30,9 +30,7 @@ io.on('connection', (socket) => {
       let roomId = lobby.generateId();
       socket.join(roomId)
       clientRooms[roomId] = {};
-      clientRooms[roomId][socket.id] = {
-         points: 0
-      };
+      clientRooms[roomId][socket.id] = {};
       socket.emit('roomStatus', { status: true, roomId: roomId, host: socket.id });
    });
 
@@ -41,9 +39,7 @@ io.on('connection', (socket) => {
       let lobbyId = data.code
       let players = Object.keys(clientRooms[lobbyId]);
       if (clientRooms[lobbyId]) {
-         clientRooms[lobbyId][socket.id] = {
-            points: 0
-         };
+         clientRooms[lobbyId][socket.id] = {};
          socket.join(lobbyId);
          socket.to(lobbyId).emit('gameReady', { status: true, roomId: lobbyId, host: players[0], guest: socket.id});
       }
