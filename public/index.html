@@ -422,7 +422,7 @@
             </div>
          </div>
       </div>
-      <div class="row align-items-md-stretch">
+      <div id="shipPlaceMenu" class="row align-items-md-stretch">
          <div class="col-md-9">
             <div class=" justify-content-center h-100 p-4 text-white bg-dark rounded-3" id="shipBay">
                <div class="container-fluid battleship" draggable="true" ondragstart="drag(event)" id="drag"></div>
@@ -436,20 +436,54 @@
                   style="display:none;"></div>
                <div class="container-fluid" id="bombingStage" style="display:none;">
                   <h1 class="menuText">Waiting for other opponent...</h1>
-                  <button type="button" class="btn btn-light" id="bombingButton" style="display:none;">Commence
-                     Battle!</button>
                </div>
             </div>
          </div>
          <div class="col-md-3">
-            <div class="h-100 p-5 bg-light border rounded-3">
+            <div id="rotateArrowMenu" class="h-100 p-5 bg-light border rounded-3">
                <img src="./assets/arrow/east.png" id="arrow" class="mb-2"> <br>
                <button type="button" id="rotatePieceButton" class="btn btn-outline-dark">Rotate</button>
             </div>
          </div>
       </div>
-      <div class="row align-items-md-stretch">
-         <div class="justify-content-center h-100 p-4" id="scoreBoard"></div>
+
+      <div id="newBottomHUD" class="container justify-content-center p-3 bg-light rounded-3" style="display: none;">
+         <button type="button" class="col btn btn-dark" id="bombingButton" style="display:none;" disabled>Commence
+            Battle!</button>
+         <div id="scoreBoard" style="display:none;">
+            <div class="row">
+               <div class="col-4"><strong>Your Ships</strong></div>
+               <div class="col-4"><strong>Score</strong></div>
+               <div class="col-4"><strong>Opponent's Ships</strong></div>
+            </div>
+            <div class="row">
+               <div id="userHealth" class="col-4">
+                  <ul>
+                     <li>⬜⬜⬜⬜ </li>
+                     <li>⬜⬜⬜⬜⬜ </li>
+                     <li>⬜⬜⬜ </li>
+                     <li>⬜⬜ </li>
+                     <li>⬜⬜⬜ </li>
+                  </ul>
+               </div>
+               <div id="userPoints" class="col-4 align-items-center">
+                  <div class="row">
+                     <div class="col"></div>
+                     <div class="col scoreText" id="literalScoreText">0 0</div>
+                     <div class="col"></div>
+                  </div>
+               </div>
+               <div id="opponentHealth" class="col-4">
+                  <ul>
+                     <li>⬜⬜⬜⬜ </li>
+                     <li>⬜⬜⬜⬜⬜ </li>
+                     <li>⬜⬜⬜ </li>
+                     <li>⬜⬜ </li>
+                     <li>⬜⬜⬜ </li>
+                  </ul>
+               </div>
+            </div>
+         </div>
       </div>
    </div>
 

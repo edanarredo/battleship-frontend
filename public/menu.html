@@ -17,11 +17,42 @@
 </head>
 
 <body>
-   <div class="menu d-flex flex-column align-items-center justify-content-center h-100" display="none">
-      <button type="button" id="createGameBtn" class="btn btn-light">Create Game</button>
-      <h2>or</h2>
-      <input id="lobbyIdInput">
-      <button type="button" id="joinGameBtn" class="btn btn-light">Join Game</button>
+   <div id="scoreboard" class="container justify-content-center p-5 bg-light rounded-3" style="display: block;">
+      <button type="button" class="btn btn-dark" id="bombingButton" style="display:none;">Commence
+         Battle!</button>
+      <div class="row" id="scoreBoard">
+
+         <div class="col-4">Your Ships</div>
+         <div class="col-4">Score</div>
+         <div class="col-4">Opponent's Ships</div>
+      </div>
+      <div class="row ">
+         <div id="userHealth" class="col-4">
+            <ul>
+               <li>⬜⬜⬜⬜ </li>
+               <li>⬜⬜⬜⬜⬜ </li>
+               <li>⬜⬜⬜ </li>
+               <li>⬜⬜ </li>
+               <li>⬜⬜⬜ </li>
+            </ul>
+         </div>
+         <div id="userPoints" class="col-4 align-items-center">
+            <div class="row">
+               <div class="col"></div>
+               <div class="col scoreText">1  5</div>
+               <div class="col"></div>
+            </div>
+         </div>
+         <div id="opponentHealth" class="col-4">
+            <ul>
+               <li>⬜⬜⬜⬜ </li>
+               <li>⬜⬜⬜⬜⬜ </li>
+               <li>⬜⬜⬜ </li>
+               <li>⬜⬜ </li>
+               <li>⬜⬜⬜ </li>
+            </ul>
+         </div>
+      </div>
    </div>
 </body>
 
