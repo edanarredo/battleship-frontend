@@ -32,6 +32,7 @@ function uploadBoard() {
          userId: userId
       });
    }
+   newBottomHUD.style.display = "block";
    showBombingButton();
 }
 
@@ -86,3 +87,7 @@ socket.on('startBombing', (data) => {
 socket.on('join', (data) => {
    userId = data.id;
 });
+
+socket.on('inviteError', (data) => {
+   alert("Invite code did not work. Try another one.");
+})

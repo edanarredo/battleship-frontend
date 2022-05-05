@@ -69,11 +69,15 @@ function advancePlacePiecePhase(boat_number) {
       break;
     default:
       document.getElementById("userStatus").style.backgroundColor = "green";
-      if (gameMode == 'multiplayer') 
+      shipPlaceMenu.style.display = "none";
+      
+      if (gameMode == 'multiplayer') {
         uploadBoard();
-      else
+      }
+      else {
         setupBotOpponentBoard();
-      startBombingPhase();
+        startBombingPhase();
+      }
       break;
   }
   drag_ship_queue++;
