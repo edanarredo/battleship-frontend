@@ -29,6 +29,7 @@ var userBoatHealthList= document.getElementById('userHealth').getElementsByTagNa
 var opponentBoatHealthList = document.getElementById('opponentHealth').getElementsByTagName("li");
 var waitingForHostText = document.getElementById("waitingForHostText");
 var bombingButtonDiv = document.getElementById("bombingButtomDiv");
+var shipLengthText = document.getElementById("shipLengthText");
 var lobbyId, gameMode, userId, opponentId;
 var isHost = true;
 var usersTurn = false;

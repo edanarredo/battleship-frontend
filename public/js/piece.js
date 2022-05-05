@@ -57,19 +57,24 @@ function advancePlacePiecePhase(boat_number) {
   switch (boat_number) {
     case 1:
       document.querySelector(".carrier").style.display = "block";
+      shipLengthText.innerText = "Length: 5 tiles";
       break;
     case 2:
       document.querySelector(".destroyer").style.display = "block";
+      shipLengthText.innerText = "Length: 3 tiles";
       break;
     case 3:
       document.querySelector(".patrol").style.display = "block";
+      shipLengthText.innerText = "Length: 2 tiles";
       break;
     case 4:
       document.querySelector(".submarine").style.display = "block";
+      shipLengthText.innerText = "Length: 3 tiles";
       break;
     default:
       document.getElementById("userStatus").style.backgroundColor = "green";
       shipPlaceMenu.style.display = "none";
+      shipLengthText.style.display = "none";
       
       if (gameMode == 'multiplayer') {
         uploadBoard();
