@@ -3,6 +3,7 @@ var socket = io();
 // Get important html elements from DOM
 
 var board = document.getElementById('boardMenu');
+var table = document.getElementById('board');
 var menuScreen = document.getElementById('menu');
 var createBotGameBtn = document.getElementById('createBotGameBtn');
 var createGameBtn = document.getElementById('createGameBtn');
@@ -13,12 +14,21 @@ var bombingStage = document.getElementById('bombingStage');
 var bombingBtn = document.getElementById('bombingButton');
 var opponentListItem = document.getElementById('opponentListItem');
 var rotatePieceButton = document.getElementById('rotatePieceButton');
+var rotateArrowTable = document.getElementById('rotateArrowMenu');
 var boxes = document.querySelectorAll(".box");
 var shipBay = document.getElementById("shipBay");
 var opponentBoard = Array.from(Array(100).keys());
 var userBoard = Array.from(Array(100).keys());
 var opponentBoxes = document.querySelectorAll(".boxOpponent");
 var gameStatus = document.getElementById("gameStatus");
+var shipPlaceMenu = document.getElementById("shipPlaceMenu");
+var newBottomHUD = document.getElementById("newBottomHUD");
+var scoreBoard = document.getElementById('scoreBoard');
+var literalScoreText = document.getElementById('literalScoreText');
+var userBoatHealthList= document.getElementById('userHealth').getElementsByTagName("li");
+var opponentBoatHealthList = document.getElementById('opponentHealth').getElementsByTagName("li");
+var waitingForHostText = document.getElementById("waitingForHostText");
+var bombingButtonDiv = document.getElementById("bombingButtomDiv");
 var lobbyId, gameMode, userId, opponentId;
 var isHost = true;
 var usersTurn = false;
@@ -44,7 +54,7 @@ function startBombingPhase() {
    else {
       gameStatus.innerText = "Opponent's turn.";
    }
-
+   hideWaitingHUD();
    return true;
 }
 

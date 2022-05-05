@@ -1,11 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=VT323&display=swap');
 body {
-   font-family: 'Poppins' !important;
-   font-weight: 700 !important;
-   background-color: #1B2022 !important;
+   font-family: 'VT323' !important;
+   font-weight: 400 !important;
+   background-color: #040303 !important;
    text-align: center;
-   color: #FFFFFF
+   color: #a8a8a8;
+   letter-spacing: -1px;
+   font-size: 58px;
 }
 
 h2 {
@@ -17,13 +18,29 @@ h3 {
    font-size: 2.5em;
 }
 
+li {
+   list-style-type: none;
+}
+
+ul {
+  padding-left: 0 !important; 
+}
+
 .menuText {
-   color: white;
+   color: #ffffff;
 }
 
 .text-center {
    padding-top: 1rem;
 }
+
+.dot {
+   height: 15px;
+   width: 15px;
+   background-color: rgb(239, 148, 51);
+   border-radius: 50%;
+   display: inline-block;
+ }
 
 .wrapper {
    display: flex;
@@ -37,21 +54,34 @@ h3 {
 .box {
    width: 50px;
    height: 50px;
-   background-color: #2B90C1;
+   background-color: #B3541E;
 }
 
 .boxOpponent {
    width: 50px;
    height: 50px;
-   background-color: #e47a62;
+   background-color: #b14646;
    z-index: 1;
 }
 
 .opponentDark {
    width: 50px;
    height: 50px;
-   background-color: #c44427e2;
+   background-color: #A13333;
    z-index: 1;
+}
+
+.lose {
+   background-color: #be7373 !important;
+}
+
+.win {
+   background-color: #78d575 !important;
+}
+
+.background-dark {
+   background-color: #232328 !important;
+   color: #ebe0e0 !important;
 }
 
 .opponentBoard {
@@ -64,7 +94,7 @@ h3 {
 }
 
 .dark {
-   background-color: #267EA8;
+   background-color: #9e4816;
 }
 
 .guess {
@@ -74,6 +104,18 @@ h3 {
 
 .hovered {
    background: #164258;
+}
+
+.scoreText {
+   height: 70px !important;
+   min-width: 250px !important;
+   border: solid;
+   border-width: 4px;
+   border-radius: 9%;
+   margin-top: 1.5rem;
+   font-size: 40px;
+   background: linear-gradient(#ebe0e0, #ebe0e0) no-repeat center/5px 100%;
+   letter-spacing: 2px;
 }
 
 #drag, #drag2, #drag3, #drag4, #drag5 {
@@ -100,6 +142,19 @@ h3 {
 #boardMenu {
    display: none;
    padding-top: 13%;
+   color: #ebe0e0;
+}
+
+#newBottomHUD {
+   color: #ebe0e0 !important;
+}
+
+#userPoints {
+   margin-top: 1.2rem;
+}
+
+#shipBay {
+   background-color: #461111;
 }
 
 #logo {

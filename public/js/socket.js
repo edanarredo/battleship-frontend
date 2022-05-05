@@ -32,6 +32,7 @@ function uploadBoard() {
          userId: userId
       });
    }
+   newBottomHUD.style.display = "block";
    showBombingButton();
 }
 
@@ -75,7 +76,7 @@ socket.on('startGame', (data) => {
 });
 
 socket.on('boardCompleteAlert', (data) => {
-   alert("Your opponent has finished placing their ships!");
+   document.getElementById("opponentStatus").style.backgroundColor = "green";
    enableBombingButton(isHost);
 });
 
@@ -86,3 +87,7 @@ socket.on('startBombing', (data) => {
 socket.on('join', (data) => {
    userId = data.id;
 });
+
+socket.on('inviteError', (data) => {
+   alert("Invite code did not work. Try another one.");
+})

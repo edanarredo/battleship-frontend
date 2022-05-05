@@ -21,12 +21,21 @@ function surrenderHost() {
 }
 
 function showBombingButton() {
-   bombingStage.style.display = "block";
-   if (isHost) 
-      bombingBtn.style.display = "block";
+   if (isHost && gameMode == 'multiplayer') 
+      bombingButtonDiv.style.display = "block";
+   else {
+      waitingForHostText.style.display = "block";
+   }
 }
 
 function enableBombingButton(isHost) {
    if (isHost) 
       bombingBtn.disabled = false;
+}
+
+function hideWaitingHUD() {
+   bombingButtonDiv.style.display = "none";
+   waitingForHostText.style.display = "none";
+   newBottomHUD.style.display = "block";
+   scoreBoard.style.display = "block";
 }

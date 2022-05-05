@@ -71,13 +71,14 @@ function makeGuess(ev) {
    var guessIndex = ev.target.dataset.index;
    var checkForWinner = checkWinner();
 
-   if (checkForWinner.gameOver) 
+   if (checkForWinner.gameOver)
       return;
    else if (usersTurn && !checkForWinner.gameOver) {
-      if (gameMode == "multiplayer")
+      if (gameMode == "multiplayer") 
          makeMultiplayerGuess(guessIndex);
-      else
+      else {
          makeSinglePlayerGuess(guessIndex);
+      }
    }
    else
       alert("Please wait for your opponent to finish...");
@@ -87,21 +88,20 @@ function makeGuess(ev) {
 function makeSinglePlayerGuess(guessIndex) {
    var guessTileValue = opponentBoard[guessIndex];
 
-   // if a hit
    if (guessTileValue > 0) {
-      all_ship_statuses['opponent'][Object.keys(boats)[guessTileValue - 1]]--;
-      userPoints++;
-      opponentBoxes[guessIndex].innerHTML = `<div style="border: 4px solid RED !important; height: 100%; width: 100%;">HIT</div>`;
+      adjustBoatHealth(Object.values(boats)[guessTileValue - 1], "opponent");
+      opponentBoxes[guessIndex].innerHTML = `<div style="border: 4px solid RED !important; height: 100%; width: 100%; font-size: 10px;">HIT</div>`;
       usersTurn = true;
    }
    else if (opponentBoard[guessIndex].innerText < 0) {
       usersTurn = true;
    }
    else {
-      opponentBoxes[guessIndex].innerHTML = `<div style="border: 4px solid YELLOW !important; height: 100%; width: 100%;">MISS</div>`;
+      opponentBoxes[guessIndex].innerHTML = `<div style="border: 4px solid YELLOW !important; height: 100%; width: 100%; font-size: 10px;">MISS</div>`;
       usersTurn = false;
       botGuess();
    }
+   checkWinner();
 }
 
 function makeMultiplayerGuess(guessIndex) {
@@ -116,16 +116,14 @@ function makeMultiplayerGuess(guessIndex) {
 socket.on('opponentGuessedRight', (data) => {
    // User hits. Still user's turn.
    if (usersTurn) {
-      opponentBoxes[data.correctGuessIndex].innerHTML = `<div style="border: 4px solid RED !important; height: 100%; width: 100%;">HIT</div>`;
+      opponentBoxes[data.correctGuessIndex].innerHTML = `<div style="border: 4px solid RED !important; height: 100%; width: 100%; font-size: 10px;">HIT</div>`;
       adjustBoatHealth(data.boatType, "opponent");
-      userPoints++;
       usersTurn = true;
    }
    // Opponent hits. Still opponent's turn.
    else {
-      boxes[data.correctGuessIndex].innerHTML = `<div style="border: 4px solid RED !important; height: 100%; width: 100%;">HIT</div>`;
+      boxes[data.correctGuessIndex].innerHTML = `<div style="border: 4px solid RED !important; height: 100%; width: 100%; font-size: 10px;">HIT</div>`;
       adjustBoatHealth(data.boatType, "user");
-      opponentPoints++;
       usersTurn = false;
    }
    checkWinner();
@@ -135,20 +133,20 @@ socket.on('opponentGuessedRight', (data) => {
 socket.on('opponentGuessedWrong', (data) => {
    // User misses shot. Pass turn
    if (usersTurn) {
-      opponentBoxes[data.wrongGuessIndex].innerHTML =  `<div style="border: 4px solid YELLOW !important; height: 100%; width: 100%;">MISS</div>`;
+      opponentBoxes[data.wrongGuessIndex].innerHTML = `<div style="border: 4px solid YELLOW !important; height: 100%; width: 100%; font-size: 10px;">MISS</div>`;
       usersTurn = false;
       gameStatus.innerText = "Opponent's turn.";
    }
 
    // Opponent misses shot. Give turn.
    else {
-      boxes[data.wrongGuessIndex].innerHTML =  `<div style="border: 4px solid YELLOW !important; height: 100%; width: 100%;">MISS</div>`;
+      boxes[data.wrongGuessIndex].innerHTML = `<div style="border: 4px solid YELLOW !important; height: 100%; width: 100%; font-size: 10px;">MISS</div>`;
       usersTurn = true;
       gameStatus.innerText = "Your turn!";
    }
 });
 
-function checkWinner() {
+async function checkWinner() {
    let userFleetSize = Object.values(all_ship_statuses.user);
    let opponentFleetSize = Object.values(all_ship_statuses.opponent);
 
@@ -157,15 +155,37 @@ function checkWinner() {
 
    var result;
 
-   if (userIsDead)
+   if (userIsDead || opponentPoints == 17)
       result = { winner: "Opponent", gameOver: true };
-   else if (opponentIsDead)
+   else if (opponentIsDead || userPoints == 17)
       result = { winner: "User", gameOver: true };
    else {
       result = { winner: "None", gameOver: false };
       return result;
    }
-   
+
    gameStatus.innerText = `${result.winner == "Opponent" ? "Your Opponent" : "You"} won!`;
+
+   if (result.winner == "Opponent") {
+      table.classList.remove('bg-light');
+      table.classList.add('lose');
+      newBottomHUD.classList.remove('bg-light');
+      newBottomHUD.classList.add('lose');
+   } else {
+      table.classList.remove('bg-light');
+      table.classList.add('win');
+      newBottomHUD.classList.remove('bg-light');
+      newBottomHUD.classList.add('win');
+   }
+
+   // Wait 5 seconds and open game over modal
+   await new Promise(r => setTimeout(r, 3000));
+   openRestartModal();
    return result;
+}
+
+function openRestartModal() {
+   var resetGameModal = document.getElementById('exampleModalRestart')
+   var modal = bootstrap.Modal.getOrCreateInstance(resetGameModal);
+   modal.toggle();
 }

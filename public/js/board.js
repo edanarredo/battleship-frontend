@@ -43,7 +43,7 @@ function setupBotOpponentBoard() {
       insertRemainingBoatPieces(opponentPlaceIndex, boat_type, direction, "OPPONENT", element);
       canBePlaced = false;
    });
-
+   document.getElementById("opponentStatus").style.backgroundColor = "green";
    enableBombingButton();
 }
 

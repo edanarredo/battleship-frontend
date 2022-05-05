@@ -18,6 +18,7 @@
 </head>
 
 <body>
+
    <!-- Main Menu  -->
    <div id="menu" class="menu align-items-center justify-content-center h-100">
 
@@ -52,7 +53,7 @@
                   </ul>
                   <br>
                   <h6 id="lobbyId"></h6>
-                  <button onclick="copyToClipboard()">Copy to Clipboard</button>
+                  <button class="btn btn-primary" onclick="copyToClipboard()">Copy to Clipboard</button>
                </div>
                <div class="modal-footer">
                   <button id="close" type="button" class="btn btn-secondary" data-bs-dismiss="modal"
@@ -67,7 +68,7 @@
       <h2 class="menuText">or</h2>
 
       <!-- Input  -->
-      <input id="lobbyIdInput"><br>
+      <input id="lobbyIdInput" placeholder="Enter Invite Code"><br>
 
       <!-- Join Game Button -->
       <button type="button" id="joinGameBtn" class="btn btn-light" data-bs-toggle="modal"
@@ -96,12 +97,12 @@
    </div>
 
    <div id="boardMenu" class="container py-4">
-      <div id="board" class="p-5 mb-4 bg-light rounded-3">
+      <div id="board" class="p-5 mb-4 rounded-3" style="background-color:#232328;">
          <h2 id="gameStatus">Place your ships!</h2>
          <!-- Battleship Board -->
          <div class="row boards">
             <div class="col-md-6" id="self_board">
-               <h4>You</h4>
+               <h4>You <span id="userStatus" class="dot"></span></h4>
                <div>
                   <div class="wrapper">
                      <div class="box dark" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
@@ -236,7 +237,7 @@
             </div>
 
             <div class="col-md-6" id="opponentBoard">
-               <h4>Opponent</h4>
+               <h4>Opponent <span id="opponentStatus" class="dot"></span></h4>
                <div>
                   <div class="wrapper">
                      <div class="boxOpponent opponentDark" onclick="makeGuess(event)" ondragover="allowDrop(event)">
@@ -421,9 +422,9 @@
             </div>
          </div>
       </div>
-      <div class="row align-items-md-stretch">
+      <div id="shipPlaceMenu" class="row align-items-md-stretch">
          <div class="col-md-9">
-            <div class=" justify-content-center h-100 p-4 text-white bg-dark rounded-3" id="shipBay">
+            <div class=" justify-content-center h-100 p-4 text-white rounded-3" id="shipBay">
                <div class="container-fluid battleship" draggable="true" ondragstart="drag(event)" id="drag"></div>
                <div class="container-fluid carrier" draggable="true" ondragstart="drag(event)" id="drag2"
                   style="display:none;"></div>
@@ -435,23 +436,89 @@
                   style="display:none;"></div>
                <div class="container-fluid" id="bombingStage" style="display:none;">
                   <h1 class="menuText">Waiting for other opponent...</h1>
-                  <button type="button" class="btn btn-light" id="bombingButton" style="display:none;">Commence
-                     Battle!</button>
                </div>
             </div>
          </div>
          <div class="col-md-3">
-            <div class="h-100 p-5 bg-light border rounded-3">
+            <div id="rotateArrowMenu" class="h-100 p-5 rounded-3" style="background-color: #232328">
                <img src="./assets/arrow/east.png" id="arrow" class="mb-2"> <br>
-               <button type="button" id="rotatePieceButton" class="btn btn-outline-dark">Rotate</button>
+               <button type="button" id="rotatePieceButton" class="btn btn-outline-light">Rotate</button>
             </div>
          </div>
       </div>
-      <div class="row align-items-md-stretch">
-         <div class="justify-content-center h-100 p-4" id="scoreBoard"></div>
+
+      <div id="newBottomHUD" class="container justify-content-center p-3 rounded-3"
+         style="display: none; background-color: #232328">
+         <div id="bombingButtomDiv" style="display:none;">
+            <button type="button" class="btn btn-danger" id="bombingButton"
+               style="margin-top: 1rem; margin-bottom: 1rem;" disabled>Commence
+               Battle!</button>
+         </div>
+         <div id="waitingForHostText" style="display:none;">
+            <h2>Waiting for host to start game...</h2>
+         </div>
+         <div id="scoreBoard" style="display:none;">
+            <div class="row">
+               <div class="col-4"><strong>Your Ships</strong></div>
+               <div class="col-4"><strong>Score</strong></div>
+               <div class="col-4"><strong>Opponent's Ships</strong></div>
+            </div>
+            <div class="row">
+               <div class="col-4">
+                  <ul id="userHealth">
+                     <li>⬜⬜⬜⬜ </li>
+                     <li>⬜⬜⬜⬜⬜ </li>
+                     <li>⬜⬜⬜ </li>
+                     <li>⬜⬜ </li>
+                     <li>⬜⬜⬜ </li>
+                  </ul>
+               </div>
+               <div id="userPoints" class="col-4 align-items-center">
+                  <div class="row">
+                     <div class="col"></div>
+                     <div class="col scoreText" id="literalScoreText">0 0</div>
+                     <div class="col"></div>
+                  </div>
+               </div>
+               <div class="col-4">
+                  <ul id="opponentHealth">
+                     <li>⬜⬜⬜⬜ </li>
+                     <li>⬜⬜⬜⬜⬜ </li>
+                     <li>⬜⬜⬜ </li>
+                     <li>⬜⬜ </li>
+                     <li>⬜⬜⬜ </li>
+                  </ul>
+               </div>
+            </div>
+         </div>
       </div>
    </div>
 
+
+   <!-- Button trigger modal -->
+   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalRestart" style="display:none;">
+      Launch demo modal
+   </button>
+
+   <!-- Modal -->
+   <div class="modal fade" id="exampleModalRestart" tabindex="-1" aria-labelledby="exampleModalRestartLabel" aria-hidden="true">
+      <div class="modal-dialog">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="exampleModalRestartLabel">Game Over.</h5>
+               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+               Please return to the menu by selecting either option.
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" onclick="location.href = 'http://localhost:3000';"
+                  data-bs-dismiss="modal">Menu</button>
+               <button type="button" class="btn btn-dark" onclick="location.href = 'http://localhost:3000';">Reload</button>
+            </div>
+         </div>
+      </div>
+   </div>
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
