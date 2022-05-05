@@ -36,15 +36,15 @@ async function botGuess() {
 
       // Check tile value and adjust game state if needed.
       if (targetTileValue > 0) {
-         adjustBoatHealth(targetTileValue);
+         adjustBoatHealth(targetTileValue, "user");
          // Leave marker indicating hit.
-         boxes[unpickedTileIndex].innerHTML = `<div style="border: 4px solid RED !important; height: 100%; width: 100%;">HIT</div>`;
+         boxes[unpickedTileIndex].innerHTML = `<div style="border: 4px solid RED !important; height: 100%; width: 100%; font-size: 10px;">HIT</div>`;
          userBoard[unpickedTileIndex] = -1;
       }
 
       // If a miss, leave marker indicating miss.
       else if (targetTileValue == 0) {
-         boxes[unpickedTileIndex].innerHTML = `<div style="border: 4px solid YELLOW !important; height: 100%; width: 100%;">MISS</div>`;
+         boxes[unpickedTileIndex].innerHTML = `<div style="border: 4px solid YELLOW !important; height: 100%; width: 100%; font-size: 10px;">MISS</div>`;
          usersTurn = true;
          gameStatus.innerText = "Your turn!";
       }
@@ -62,29 +62,30 @@ function tryAdjacent(index) {
 }
 
 function adjustBoatHealth(tileBoatValue, player) {
+   if (player == "user") 
+      opponentPoints++;
+   else
+      userPoints++;
+
    switch (tileBoatValue) {
       case 1:
          all_ship_statuses[player]['B']--;
-         opponentPoints++;
          break;
       case 2:
          all_ship_statuses[player]['C']--;
-         opponentPoints++;
          break;
       case 3:
          all_ship_statuses[player]['D']--;
-         opponentPoints++;
          break;
       case 4:
          all_ship_statuses[player]['P']--;
-         opponentPoints++;
          break;
       case 5:
          all_ship_statuses[player]['S']--;
-         opponentPoints++;
          break;
       default:
          break;
    }
+   literalScoreText.innerText = `${userPoints}  ${opponentPoints}`;
 }
 
