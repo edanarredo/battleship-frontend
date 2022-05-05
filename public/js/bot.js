@@ -26,7 +26,7 @@ var all_ship_statuses = {
 async function botGuess() {
    gameStatus.innerText = "Opponent's turn.";
    while (!usersTurn) {
-
+      await new Promise(r => setTimeout(r, 1000));
       // Pick random tile that has not been guessed yet.
       var unpickedTilesForGuess = botGuesses.filter(item => !botAttemptedIndexes.includes(item))
       var randomIndex = Math.floor(Math.random() * (unpickedTilesForGuess.length + 1));
@@ -50,7 +50,6 @@ async function botGuess() {
       }
 
       attempts++;
-      await new Promise(r => setTimeout(r, 1000));
    }
 }
 
@@ -67,25 +66,42 @@ function adjustBoatHealth(tileBoatValue, player) {
    else
       userPoints++;
 
+   let boardHealthListIndex = tileBoatValue - 1;
+   let targetBoatHealth;
+
    switch (tileBoatValue) {
       case 1:
          all_ship_statuses[player]['B']--;
+         targetBoatHealth = all_ship_statuses[player]['B'];
          break;
       case 2:
          all_ship_statuses[player]['C']--;
+         targetBoatHealth = all_ship_statuses[player]['C'];
          break;
       case 3:
          all_ship_statuses[player]['D']--;
+         targetBoatHealth = all_ship_statuses[player]['D'];
          break;
       case 4:
          all_ship_statuses[player]['P']--;
+         targetBoatHealth = all_ship_statuses[player]['P'];
          break;
       case 5:
          all_ship_statuses[player]['S']--;
+         targetBoatHealth = all_ship_statuses[player]['S'];
          break;
       default:
          break;
    }
-   literalScoreText.innerText = `${userPoints}  ${opponentPoints}`;
+
+   literalScoreText.innerText = `${userPoints}   ${opponentPoints}`;
+   let deadShip = "🟥";
+
+   if (targetBoatHealth == 0) {
+      if (player == "user")
+         userBoatHealthList[boardHealthListIndex].innerText =  deadShip.repeat(boat_sizes[tileBoatValue-1]);
+      else
+         opponentBoatHealthList[boardHealthListIndex].innerText = deadShip.repeat(boat_sizes[tileBoatValue-1]);
+   }
 }
 
