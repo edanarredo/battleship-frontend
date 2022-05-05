@@ -1,7 +1,4 @@
 var socket = io();
-
-// Get important html elements from DOM
-
 var board = document.getElementById('boardMenu');
 var table = document.getElementById('board');
 var menuScreen = document.getElementById('menu');
