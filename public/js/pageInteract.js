@@ -22,7 +22,10 @@ function surrenderHost() {
 
 function showBombingButton() {
    if (isHost && gameMode == 'multiplayer') 
-      bombingBtn.style.display = "block";
+      bombingButtonDiv.style.display = "block";
+   else {
+      waitingForHostText.style.display = "block";
+   }
 }
 
 function enableBombingButton(isHost) {
@@ -31,7 +34,8 @@ function enableBombingButton(isHost) {
 }
 
 function hideWaitingHUD() {
-   bombingBtn.style.display = "none";
+   bombingButtonDiv.style.display = "none";
+   waitingForHostText.style.display = "none";
    newBottomHUD.style.display = "block";
    scoreBoard.style.display = "block";
 }
