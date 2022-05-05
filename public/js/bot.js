@@ -20,6 +20,7 @@ async function botGuess() {
          // Leave marker indicating hit.
          boxes[unpickedTileIndex].innerHTML = `<div style="border: 4px solid #ff3d3d !important; height: 100%; width: 100%; font-size: 10px;">HIT</div>`;
          userBoard[unpickedTileIndex] = -1;
+         shots.unshift(unpickedTileIndex);
       }
 
       // If a miss, leave marker indicating miss.
