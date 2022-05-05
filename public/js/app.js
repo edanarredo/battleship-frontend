@@ -19,6 +19,10 @@ var opponentBoard = Array.from(Array(100).keys());
 var userBoard = Array.from(Array(100).keys());
 var opponentBoxes = document.querySelectorAll(".boxOpponent");
 var gameStatus = document.getElementById("gameStatus");
+var shipPlaceMenu = document.getElementById("shipPlaceMenu");
+var newBottomHUD = document.getElementById("newBottomHUD");
+var scoreBoard = document.getElementById('scoreBoard');
+var literalScoreText = document.getElementById('literalScoreText');
 var lobbyId, gameMode, userId, opponentId;
 var isHost = true;
 var usersTurn = false;
@@ -44,7 +48,7 @@ function startBombingPhase() {
    else {
       gameStatus.innerText = "Opponent's turn.";
    }
-
+   hideWaitingHUD();
    return true;
 }
 
