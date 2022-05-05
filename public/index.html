@@ -96,6 +96,7 @@
       </div>
    </div>
 
+   <!-- Game Board UI -->
    <div id="boardMenu" class="container py-4">
       <div id="board" class="p-5 mb-4 rounded-3" style="background-color:#232328;">
          <h2 id="gameStatus">Place your ships!</h2>
@@ -236,6 +237,7 @@
                </div>
             </div>
 
+            <!-- Opponent Battleship Board -->
             <div class="col-md-6" id="opponentBoard">
                <h4>Opponent <span id="opponentStatus" class="dot"></span></h4>
                <div>
@@ -422,6 +424,8 @@
             </div>
          </div>
       </div>
+
+      <!-- Ship-to-place Drag Bay -->
       <div id="shipPlaceMenu" class="row align-items-md-stretch">
          <div class="col-md-9">
             <div class=" justify-content-center h-100 p-4 text-white rounded-3" id="shipBay">
@@ -441,7 +445,7 @@
             </div>
          </div>
          
-         
+         <!-- Piece Rotation Menu -->
          <div class="col-md-3">
             <div id="rotateArrowMenu" class="h-100 p-5 rounded-3" style="background-color: #232328">
                <img src="./assets/arrow/east.png" id="arrow" class="mb-2"> <br>
@@ -450,6 +454,7 @@
          </div>
       </div>
 
+      <!-- Game Status & Points -->
       <div id="newBottomHUD" class="container justify-content-center p-3 rounded-3"
          style="display: none; background-color: #232328">
          <div id="bombingButtomDiv" style="display:none;">
@@ -530,7 +535,8 @@
 <script src="./js/app.js"></script>
 <script src="./js/board.js"></script>
 <script src="./js/piece.js"></script>
-<script src="./js/pageInteract.js"></script>
+<script src="./js/guess.js"></script>
+<script src="./js/interact.js"></script>
 <script src="./js/socket.js"></script>
 <script src="./js/util.js"></script>
 <script src="./js/bot.js"></script>
