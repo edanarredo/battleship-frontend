@@ -18,8 +18,13 @@
 
 <body>
    <div id="scoreboard" class="container justify-content-center p-5 bg-light rounded-3" style="display: block;">
-      <button type="button" class="btn btn-dark" id="bombingButton" style="display:none;">Commence
-         Battle!</button>
+      <div id="bombingButtomDiv" style="display:none;">
+         <button type="button" class="btn btn-dark" id="bombingButton">Commence
+            Battle!</button>
+      </div>
+      <div id="waitingForHostText" style="display:none;">
+         <h1>Waiting for host to start game...</h1>
+      </div>
       <div class="row" id="scoreBoard">
 
          <div class="col-4">Your Ships</div>
@@ -39,7 +44,7 @@
          <div id="userPoints" class="col-4 align-items-center">
             <div class="row">
                <div class="col"></div>
-               <div class="col scoreText">1  5</div>
+               <div class="col scoreText">1 5</div>
                <div class="col"></div>
             </div>
          </div>
