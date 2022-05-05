@@ -65,6 +65,7 @@ for (const box of boxes) {
 
 for (let i = 0; i < 100; i++) {
    opponentBoxes[i].setAttribute('data-index', `${i}`);
+   boxes[i].setAttribute('data-index-player', `${i}`);
 }
 
 function makeGuess(ev) {

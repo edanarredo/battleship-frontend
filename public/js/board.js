@@ -38,7 +38,7 @@ function setupBotOpponentBoard() {
          y = Math.floor(y);
          opponentPlaceIndex = x + 10 * y;
          boat_type = Object.values(boats)[index];
-         canBePlaced = boatCanBePlaced(opponentPlaceIndex, x, y, element, direction, "OPPONENT", element);
+         canBePlaced = boatCanBePlaced(opponentPlaceIndex, x, y, element, direction, "OPPONENT");
       }
       insertRemainingBoatPieces(opponentPlaceIndex, boat_type, direction, "OPPONENT", element);
       canBePlaced = false;
@@ -48,12 +48,17 @@ function setupBotOpponentBoard() {
 }
 
 function boatCanBePlaced(index, x, y, piece_size, direction, board) {
+   var boardToCheck = (board == "OPPONENT" ? opponentBoard : userBoard);
    var canBePlaced = true;
+
    if (direction == "east") {
-      if ((x % 10) + piece_size <= 9) {
+      console.log(x);
+      if (x + piece_size - 1 <= 9) {
          for (let i = 0; i < piece_size; i++) {
-            if (opponentBoard[index + i] != 0)
+            console.log("i:" + i);
+            if (boardToCheck[index + i] != 0) {
                canBePlaced = false;
+            }
          }
       } else {
          canBePlaced = false;
@@ -62,7 +67,7 @@ function boatCanBePlaced(index, x, y, piece_size, direction, board) {
    else if (direction == "south") {
       if ((y + (piece_size - 1) * 10) < 100) {
          for (let i = 0; i < piece_size; i++) {
-            if (opponentBoard[index + (10 * i)] != 0)
+            if (boardToCheck[index + (10 * i)] != 0)
                canBePlaced = false;
          }
       }
