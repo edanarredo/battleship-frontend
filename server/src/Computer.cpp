@@ -4,7 +4,7 @@
 
 
 using namespace std;
-int Computer::cPlaceBoats(battleship &target, int size, int type) {
+int Computer::cPlaceBoats(battleship &target, int sxize, int type) {
     int r; //rand
     int x = 0;
     int y = 0;
@@ -112,21 +112,31 @@ int Computer::tryMove(battleship &target){
         for (int i = 0; i < 5; i++){
             shots.pop_back();
         }
+        target.C++;
     }
     else if (target.B == 5){
         for (int i = 0; i < 4; i++){
             shots.pop_back();
         }
+        target.B++;
     }
-    else if (target.D == 4 || target.S == 4){
+    else if (target.D == 4 ){
         for (int i = 0; i < 3; i++){
             shots.pop_back();
         }
+        target.D++;
+    }
+    else if (target.S == 4 ){
+        for (int i = 0; i < 3; i++){
+            shots.pop_back();
+        }
+        target.S++;
     }
     else if (target.P == 3){
         for (int i = 0; i < 2; i++){
             shots.pop_back();
         }
+        target.P++;
     }
     while(attempts < 100){
         if (tryAdjacent(target, x, y) != 0) { //attempt to hit around a previous hit
