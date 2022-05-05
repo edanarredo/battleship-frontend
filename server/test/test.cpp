@@ -31,7 +31,7 @@ int main(){
     srand(1);
     copy(&testBoard[0][0], &testBoard[0][0]+10*10,&test.board[0][0]);
     assert(comp.cPlaceBoats(test,5,3) == 0);
-    cout << "cPlaceBoats test passed\n";
+    cout << "cPlaceBoats test passed";
     copy(&testBoard[0][0], &testBoard[0][0]+10*10,&test.board[0][0]);
     assert(test.checkBoats(test,0,1,5,'w') == 1);
     cout << "\ncheckBoats (valid boat) test passed";
@@ -40,14 +40,15 @@ int main(){
     assert(!test.checkBoats(test,0,0,5,'n'));
     cout << "\ncheckBoats (invalid boat / first space full) test passed";
     assert(!test.checkBoats(test,3,5,5,'e'));
-    cout << "\ncheckBoats (invalid boat / off board fail) test passed\n\n";
+    cout << "\ncheckBoats (invalid boat / off board fail) test passed\n";
     copy(&testBoard2[0][0], &testBoard2[0][0]+10*10,&test.board[0][0]);
     comp.shots.emplace_back(2,0);
     comp.shots.emplace_back(1,0);
     comp.tryMove(test);
+    cout << "\n";
     comp.tryMove(test);
     assert(test.board[3][0] == 4);
-    cout << "\nEdge test passed. Carrier should be hit twice.\n\n";
+    cout << "\nEdge test passed. Carrier should be hit twice.\n";
     comp.shots.pop_back();
     comp.shots.pop_back();
     comp.shots.pop_back();
