@@ -88,9 +88,8 @@ function makeGuess(ev) {
 function makeSinglePlayerGuess(guessIndex) {
    var guessTileValue = opponentBoard[guessIndex];
 
-   // if a hit
    if (guessTileValue > 0) {
-      adjustBoatHealth(Object.keys(boats)[guessTileValue - 1], "opponent");
+      adjustBoatHealth(Object.values(boats)[guessTileValue - 1], "opponent");
       opponentBoxes[guessIndex].innerHTML = `<div style="border: 4px solid RED !important; height: 100%; width: 100%; font-size: 10px;">HIT</div>`;
       usersTurn = true;
    }
@@ -147,7 +146,7 @@ socket.on('opponentGuessedWrong', (data) => {
    }
 });
 
-function checkWinner() {
+async function checkWinner() {
    let userFleetSize = Object.values(all_ship_statuses.user);
    let opponentFleetSize = Object.values(all_ship_statuses.opponent);
 
@@ -166,5 +165,27 @@ function checkWinner() {
    }
 
    gameStatus.innerText = `${result.winner == "Opponent" ? "Your Opponent" : "You"} won!`;
+
+   if (result.winner == "Opponent") {
+      table.classList.remove('bg-light');
+      table.classList.add('lose');
+      newBottomHUD.classList.remove('bg-light');
+      newBottomHUD.classList.add('lose');
+   } else {
+      table.classList.remove('bg-light');
+      table.classList.add('win');
+      newBottomHUD.classList.remove('bg-light');
+      newBottomHUD.classList.add('win');
+   }
+
+   // Wait 5 seconds and open game over modal
+   await new Promise(r => setTimeout(r, 3000));
+   openRestartModal();
    return result;
+}
+
+function openRestartModal() {
+   var resetGameModal = document.getElementById('exampleModalRestart')
+   var modal = bootstrap.Modal.getOrCreateInstance(resetGameModal);
+   modal.toggle();
 }
